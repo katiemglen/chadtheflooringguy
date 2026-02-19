@@ -530,7 +530,6 @@ function BidForm() {
                 <option value="">Select...</option>
                 <option value="cell">📱 Cell Phone</option>
                 <option value="landline">📞 Landline</option>
-                <option value="not-sure">Not Sure</option>
               </select>
             </div>
           </div>
@@ -593,7 +592,7 @@ function BidForm() {
           {/* Description */}
           <div className="form-group">
             <label className="form-label">Describe Your Project *</label>
-            <textarea className="form-textarea" required value={form.description} onChange={e => updateField("description", e.target.value)} placeholder="Tell Chad what's going on with your floors — what needs fixing, what room, any details that help..." rows={4} />
+            <textarea className="form-textarea" required value={form.description} onChange={e => updateField("description", e.target.value)} placeholder={form.address ? "Tell Chad what's going on with your floors — what needs fixing, what room, any details that help..." : "Tell us about your project! If you didn't enter an address above, let us know the general area or city where the work is needed — this helps us confirm we service your location. For businesses with multiple locations, just let us know how many sites and their general areas."} rows={4} />
           </div>
 
           {/* Photo Upload */}
@@ -638,9 +637,9 @@ function BidForm() {
             <select className="form-select" required value={form.referralSource} onChange={e => updateField("referralSource", e.target.value)}>
               <option value="">Select one...</option>
               <option value="nextdoor">Nextdoor</option>
-              <option value="google">Google</option>
               <option value="facebook">Facebook</option>
-              <option value="word-of-mouth">Word of Mouth / Referral</option>
+              <option value="google">Google</option>
+              <option value="word-of-mouth">Word of Mouth</option>
               <option value="other">Other</option>
             </select>
           </div>
