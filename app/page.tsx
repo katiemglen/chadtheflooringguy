@@ -160,16 +160,22 @@ function RepairServices({ services }: { services: any[] }) {
             Flooring repair specialists are hard to find. Most people don&apos;t even know this service exists.
             Chad is one of the few — and he&apos;s been doing it for 20+ years.
           </p>
+          <p style={{ color: "var(--text-dim)", maxWidth: 700, margin: "16px auto 0", lineHeight: 1.8, fontSize: "0.95rem" }}>
+            Some fixes are quick wins — a simple seam repair, a small patch, or a single transition fix. With over 20 years of experience, Chad can often knock these out efficiently and have your floors looking perfect in no time.
+          </p>
+          <p style={{ color: "var(--text-dim)", maxWidth: 700, margin: "12px auto 0", lineHeight: 1.8, fontSize: "0.95rem" }}>
+            Other projects are a different story. An entire house that needs re-stretching, multiple doorway transitions, extensive damage across several rooms — these are the jobs that challenge every tool in Chad&apos;s toolbox and every bit of expertise he&apos;s built over two decades. Think of it like this: sometimes it&apos;s one job, and sometimes it&apos;s four jobs rolled into one. The price reflects the scope, the skill required, and the time it takes to get it done right. Either way, Chad will walk you through exactly what&apos;s needed before any work begins — no surprises.
+          </p>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20 }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, maxWidth: 400, margin: "0 auto" }}>
           {services.map((s) => (
-            <div key={s._id} className="card" style={{ padding: 28 }}>
+            <div key={s._id} className="card" style={{ padding: 28, textAlign: "center", width: "100%" }}>
               <div style={{ fontSize: "2rem", marginBottom: 12 }}>{s.icon}</div>
               <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: 4 }}>{s.name}</h3>
-              {s.priceRange && <p style={{ color: "var(--gold-dark)", fontSize: "0.85rem", fontWeight: 700, marginBottom: 8 }}>{s.priceRange} · Typically 2-3 hours</p>}
+              {s.priceRange && <p style={{ color: "var(--gold-dark)", fontSize: "0.85rem", fontWeight: 700, marginBottom: 8 }}>{s.priceRange}</p>}
               <p style={{ color: "var(--text-dim)", fontSize: "0.9rem", lineHeight: 1.7, marginBottom: 16 }}>{s.description}</p>
               {s.features && (
-                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                <ul style={{ listStyle: "none", padding: 0, margin: 0, textAlign: "center" }}>
                   {s.features.map((f: string, i: number) => (
                     <li key={i} style={{ color: "var(--text-dim)", fontSize: "0.8rem", padding: "3px 0" }}>
                       <span style={{ color: "var(--forest)", marginRight: 8 }}>✓</span>{f}
@@ -199,19 +205,22 @@ function InstallServices({ services }: { services: any[] }) {
           <div className="section-bar" />
           <p>Full room or whole house — Chad installs it right the first time and helps you source the best materials at the best price.</p>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: 20 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: 20, justifyItems: "center" }}>
           {services.map((s) => (
-            <div key={s._id} className="card" style={{ padding: 28 }}>
+            <div key={s._id} className="card" style={{ padding: 28, textAlign: "center" }}>
               <div style={{ fontSize: "2rem", marginBottom: 12 }}>{s.icon}</div>
               <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: 8 }}>{s.name}</h3>
               <p style={{ color: "var(--text-dim)", fontSize: "0.9rem", lineHeight: 1.7, marginBottom: 16 }}>{s.description}</p>
               {s.features && (
-                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                <ul style={{ listStyle: "none", padding: 0, margin: 0, textAlign: "center" }}>
                   {s.features.map((f: string, i: number) => (
                     <li key={i} style={{ color: "var(--text-dim)", fontSize: "0.8rem", padding: "3px 0" }}>
                       <span style={{ color: "var(--forest)", marginRight: 8 }}>✓</span>{f}
                     </li>
                   ))}
+                  <li style={{ color: "var(--gold-dark)", fontSize: "0.8rem", padding: "3px 0", fontWeight: 700 }}>
+                    <span style={{ color: "var(--forest)", marginRight: 8 }}>✓</span>And more!
+                  </li>
                 </ul>
               )}
             </div>
@@ -233,13 +242,13 @@ function AdditionalServices({ services }: { services: any[] }) {
           <div className="section-bar" />
           <p style={{ fontSize: "0.95rem" }}>Available for the right project. Contact Chad for a custom quote.</p>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20, maxWidth: 700, margin: "0 auto" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20, maxWidth: 700, margin: "0 auto", justifyItems: "center" }}>
           {services.map((s) => (
-            <div key={s._id} className="card" style={{ padding: 24 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
+            <div key={s._id} className="card" style={{ padding: 24, textAlign: "center" }}>
+              <div style={{ marginBottom: 8 }}>
                 <span style={{ fontSize: "1.5rem" }}>{s.icon}</span>
-                <h3 style={{ fontSize: "1rem", fontWeight: 800 }}>{s.name}</h3>
               </div>
+              <h3 style={{ fontSize: "1rem", fontWeight: 800, marginBottom: 8 }}>{s.name}</h3>
               <p style={{ color: "var(--text-dim)", fontSize: "0.85rem", lineHeight: 1.6 }}>{s.shortDescription}</p>
             </div>
           ))}

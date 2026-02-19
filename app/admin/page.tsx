@@ -61,7 +61,7 @@ export default function AdminDashboard() {
                   <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
                     <span style={{ width: 10, height: 10, borderRadius: "50%", background: statusColors[sub.status] || "#ccc" }} />
                     <div>
-                      <span style={{ fontWeight: 700 }}>{sub.firstName} {sub.lastName}</span>
+                      <span style={{ fontWeight: 700 }}>{sub.firstName ? `${sub.firstName} ${sub.lastName || ""}` : sub.name || "Unknown"}</span>
                       <span style={{ color: "#888", marginLeft: 12, fontSize: "0.85rem" }}>{sub.phone} {sub.phoneType === "landline" ? "📞" : sub.phoneType === "cell" ? "📱" : ""}</span>
                     </div>
                     <span style={{ padding: "3px 10px", background: "#F5A62320", color: "#d97706", borderRadius: 6, fontSize: "0.75rem", fontWeight: 700, textTransform: "capitalize" }}>{sub.serviceType}</span>
@@ -78,7 +78,7 @@ export default function AdminDashboard() {
                 {selected === sub._id && (
                   <div style={{ padding: "0 24px 24px", borderTop: "1px solid #f0f0f0" }}>
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 16, marginTop: 16 }}>
-                      <Detail label="Phone" value={`${sub.phone} (${sub.phoneType === "cell" ? "📱 Cell" : sub.phoneType === "landline" ? "📞 Landline" : "Unknown"})`} isPhone />
+                      <Detail label="Phone" value={`${sub.phone}${sub.phoneType ? ` (${sub.phoneType === "cell" ? "📱 Cell" : sub.phoneType === "landline" ? "📞 Landline" : "Unknown"})` : ""}`} isPhone />
                       <Detail label="Email" value={sub.email || "—"} />
                       <Detail label="Address" value={sub.address || "—"} />
                       <Detail label="Service" value={sub.serviceType} />
