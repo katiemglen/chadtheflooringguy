@@ -1,5 +1,7 @@
 import { mutation } from "./_generated/server";
 import { v } from "convex/values";
+import { internal } from "./_generated/api";
+import { api } from "./_generated/api";
 
 export const submitBid = mutation({
   args: {
@@ -26,6 +28,23 @@ export const submitBid = mutation({
       smsNotified: false,
       createdAt: new Date().toISOString(),
     });
+
+    // Schedule SMS notification to Chad (runs immediately via email-to-SMS gateway)
+    await ctx.scheduler.runAfter(0, api.actions.sendSmsNotification, {
+      bidId: id,
+      firstName: args.firstName,
+      lastName: args.lastName,
+      phone: args.phone,
+      phoneType: args.phoneType,
+      serviceType: args.serviceType,
+      flooringType: args.flooringType,
+      squareFootage: args.squareFootage,
+      timeline: args.timeline,
+      referralSource: args.referralSource,
+      description: args.description,
+      photoCount,
+    });
+
     return { id, photoCount };
   },
 });

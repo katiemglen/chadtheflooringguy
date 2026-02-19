@@ -235,9 +235,9 @@ function RepairServices({ services }: { services: any[] }) {
             Other projects are a different story. An entire house that needs re-stretching, multiple doorway transitions, extensive damage across several rooms — these are the jobs that challenge every tool in Chad&apos;s toolbox and every bit of expertise he&apos;s built over two decades. Think of it like this: sometimes it&apos;s one job, and sometimes it&apos;s four jobs rolled into one. The price reflects the scope, the skill required, and the time it takes to get it done right. Either way, Chad will walk you through exactly what&apos;s needed before any work begins — no surprises.
           </p>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, maxWidth: 400, margin: "0 auto" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20, maxWidth: 700, margin: "0 auto" }}>
           {services.map((s) => (
-            <div key={s._id} className="card" style={{ padding: 28, textAlign: "center", width: "100%" }}>
+            <div key={s._id} className="card" style={{ padding: 28, textAlign: "center" }}>
               <div style={{ fontSize: "2rem", marginBottom: 12 }}>{s.icon}</div>
               <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: 4 }}>{s.name}</h3>
               {s.priceRange && <p style={{ color: "var(--gold-dark)", fontSize: "0.85rem", fontWeight: 700, marginBottom: 8 }}>{s.priceRange}</p>}
@@ -273,9 +273,9 @@ function InstallServices({ services }: { services: any[] }) {
           <div className="section-bar" />
           <p>Full room or whole house — Chad installs it right the first time and helps you source the best materials at the best price.</p>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: 20, justifyItems: "center" }}>
+        <div style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap" }}>
           {services.map((s) => (
-            <div key={s._id} className="card" style={{ padding: 28, textAlign: "center" }}>
+            <div key={s._id} className="card" style={{ padding: 28, textAlign: "center", maxWidth: 380, width: "100%" }}>
               <div style={{ fontSize: "2rem", marginBottom: 12 }}>{s.icon}</div>
               <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: 8 }}>{s.name}</h3>
               <p style={{ color: "var(--text-dim)", fontSize: "0.9rem", lineHeight: 1.7, marginBottom: 16 }}>{s.description}</p>

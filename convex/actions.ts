@@ -2,12 +2,13 @@ import { action } from "./_generated/server";
 import { v } from "convex/values";
 import { api } from "./_generated/api";
 
-// TODO: Set these environment variables in Convex dashboard:
-// TWILIO_ACCOUNT_SID - Your Twilio Account SID
-// TWILIO_AUTH_TOKEN - Your Twilio Auth Token
-// TWILIO_PHONE_NUMBER - Your Twilio phone number (e.g., +1XXXXXXXXXX)
-// CHAD_PHONE_NUMBER - Chad's phone: +16513536238
-// SITE_URL - Your Vercel deployment URL
+// FREE SMS via T-Mobile Email-to-SMS Gateway
+// Uses Resend (free tier: 100 emails/day) to send an email to
+// 6513536238@tmomail.net which arrives as a text message on Chad's phone.
+//
+// Set these environment variables in Convex dashboard:
+// RESEND_API_KEY - Your Resend API key (free at resend.com)
+// SITE_URL - Your Vercel deployment URL (optional, defaults to prod)
 
 export const sendSmsNotification = action({
   args: {
@@ -26,6 +27,7 @@ export const sendSmsNotification = action({
   },
   handler: async (ctx, args) => {
     const siteUrl = process.env.SITE_URL || "https://chadtheflooringguy.vercel.app";
+    const resendKey = process.env.RESEND_API_KEY;
 
     const serviceLabels: Record<string, string> = {
       "repair": "Repair",
@@ -53,7 +55,6 @@ export const sendSmsNotification = action({
       "word-of-mouth": "Word of Mouth",
       "other": "Other",
     };
-
     const phoneTypeLabels: Record<string, string> = {
       "cell": "📱 Cell",
       "landline": "📞 Landline",
@@ -69,52 +70,51 @@ Area: ${args.squareFootage || "Not provided"}
 Timeline: ${timelineLabels[args.timeline] || args.timeline}
 Source: ${sourceLabels[args.referralSource] || args.referralSource}
 
-Description: ${args.description}
+${args.description}
 
-📸 Photos: ${args.photoCount} attached
+📸 ${args.photoCount} photo${args.photoCount !== 1 ? "s" : ""}
 ${siteUrl}/admin`;
 
-    // TODO: Uncomment when Twilio credentials are configured
-    /*
-    const accountSid = process.env.TWILIO_ACCOUNT_SID;
-    const authToken = process.env.TWILIO_AUTH_TOKEN;
-    const twilioPhone = process.env.TWILIO_PHONE_NUMBER;
-    const chadPhone = process.env.CHAD_PHONE_NUMBER || "+16513536238";
-
-    if (!accountSid || !authToken || !twilioPhone) {
-      console.log("Twilio not configured. SMS would have been:", message);
-      return { sent: false, reason: "Twilio not configured" };
+    if (!resendKey) {
+      console.log("📱 SMS notification (Resend not configured):", message);
+      return { sent: false, reason: "Resend API key not configured — set RESEND_API_KEY in Convex env vars" };
     }
 
-    const url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`;
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Authorization": "Basic " + btoa(`${accountSid}:${authToken}`),
-      },
-      body: new URLSearchParams({
-        To: chadPhone,
-        From: twilioPhone,
-        Body: message,
-      }),
-    });
+    // Send via T-Mobile email-to-SMS gateway
+    // Chad's number: 651-353-6238 on T-Mobile → 6513536238@tmomail.net
+    const smsGateway = "6513536238@tmomail.net";
 
-    if (!response.ok) {
-      console.error("Twilio error:", await response.text());
-      return { sent: false, reason: "Twilio API error" };
+    try {
+      const response = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${resendKey}`,
+        },
+        body: JSON.stringify({
+          from: "Chad the Flooring Guy <notifications@chadtheflooringguy.vercel.app>",
+          to: [smsGateway],
+          subject: `🔨 New Bid: ${args.firstName} ${args.lastName} - ${serviceLabels[args.serviceType] || args.serviceType}`,
+          text: message,
+        }),
+      });
+
+      if (!response.ok) {
+        const err = await response.text();
+        console.error("Resend error:", err);
+        return { sent: false, reason: "Email-to-SMS failed: " + err };
+      }
+
+      // Mark as notified
+      await ctx.runMutation(api.mutations.updateBidStatus, {
+        id: args.bidId,
+        status: "new",
+      });
+
+      return { sent: true, method: "email-to-sms" };
+    } catch (err) {
+      console.error("SMS notification error:", err);
+      return { sent: false, reason: String(err) };
     }
-
-    // Mark as notified
-    await ctx.runMutation(api.mutations.updateBidStatus, {
-      id: args.bidId,
-      status: "new",
-    });
-
-    return { sent: true };
-    */
-
-    console.log("📱 SMS notification (Twilio not configured):", message);
-    return { sent: false, reason: "Twilio not configured — see console for message preview" };
   },
 });
