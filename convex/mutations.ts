@@ -3,8 +3,10 @@ import { v } from "convex/values";
 
 export const submitBid = mutation({
   args: {
-    name: v.string(),
+    firstName: v.string(),
+    lastName: v.string(),
     phone: v.string(),
+    phoneType: v.string(),
     email: v.optional(v.string()),
     address: v.optional(v.string()),
     serviceType: v.string(),

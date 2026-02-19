@@ -12,8 +12,10 @@ import { api } from "./_generated/api";
 export const sendSmsNotification = action({
   args: {
     bidId: v.id("bidSubmissions"),
-    name: v.string(),
+    firstName: v.string(),
+    lastName: v.string(),
     phone: v.string(),
+    phoneType: v.string(),
     serviceType: v.string(),
     flooringType: v.string(),
     squareFootage: v.optional(v.string()),
@@ -52,9 +54,15 @@ export const sendSmsNotification = action({
       "other": "Other",
     };
 
+    const phoneTypeLabels: Record<string, string> = {
+      "cell": "📱 Cell",
+      "landline": "📞 Landline",
+      "not-sure": "❓ Unknown",
+    };
+
     const message = `🔨 New Bid Request
-Name: ${args.name}
-Phone: ${args.phone}
+Name: ${args.firstName} ${args.lastName}
+Phone: ${args.phone} (${phoneTypeLabels[args.phoneType] || args.phoneType})
 Service: ${serviceLabels[args.serviceType] || args.serviceType}
 Flooring: ${flooringLabels[args.flooringType] || args.flooringType}
 Area: ${args.squareFootage || "Not provided"}

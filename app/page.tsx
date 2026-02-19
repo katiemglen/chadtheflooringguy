@@ -317,8 +317,10 @@ function BidForm() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [form, setForm] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     phone: "",
+    phoneType: "",
     email: "",
     address: "",
     serviceType: "",
@@ -361,8 +363,10 @@ function BidForm() {
       }
 
       await submitBid({
-        name: form.name,
+        firstName: form.firstName,
+        lastName: form.lastName,
         phone: form.phone,
+        phoneType: form.phoneType,
         email: form.email || undefined,
         address: form.address || undefined,
         serviceType: form.serviceType,
@@ -423,18 +427,34 @@ function BidForm() {
         <div className="section-head">
           <h2>Get a Free Bid</h2>
           <div className="section-bar" />
-          <p>Fill out the form below and Chad will text you back — usually within 24 hours. Adding photos speeds everything up!</p>
+          <p>Fill out the form below and Chad will get back to you — usually within 24 hours. Sending a text with photos is the fastest way to get an estimate! If you&apos;d prefer to call Chad directly, you can reach him at <a href="tel:6513536238" style={{ color: "var(--gold)", fontWeight: 700 }}>651-353-6238</a> — he&apos;s usually on a job, so texting is more efficient, but he&apos;s always happy to chat when he&apos;s free!</p>
         </div>
         <form onSubmit={handleSubmit} className="card" style={{ padding: 36 }}>
-          {/* Name & Phone */}
+          {/* First & Last Name */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             <div className="form-group">
-              <label className="form-label">Name *</label>
-              <input className="form-input" required value={form.name} onChange={e => updateField("name", e.target.value)} placeholder="Your name" />
+              <label className="form-label">First Name *</label>
+              <input className="form-input" required value={form.firstName} onChange={e => updateField("firstName", e.target.value)} placeholder="First name" />
             </div>
+            <div className="form-group">
+              <label className="form-label">Last Name *</label>
+              <input className="form-input" required value={form.lastName} onChange={e => updateField("lastName", e.target.value)} placeholder="Last name" />
+            </div>
+          </div>
+          {/* Phone & Phone Type */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             <div className="form-group">
               <label className="form-label">Phone *</label>
               <input className="form-input" required type="tel" value={form.phone} onChange={e => updateField("phone", e.target.value)} placeholder="651-555-1234" />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Phone Type *</label>
+              <select className="form-input" required value={form.phoneType} onChange={e => updateField("phoneType", e.target.value)}>
+                <option value="">Select...</option>
+                <option value="cell">📱 Cell Phone</option>
+                <option value="landline">📞 Landline</option>
+                <option value="not-sure">Not Sure</option>
+              </select>
             </div>
           </div>
 

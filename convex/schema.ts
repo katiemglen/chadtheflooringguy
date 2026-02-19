@@ -46,8 +46,10 @@ export default defineSchema({
 
   // Bid intake submissions — the core feature
   bidSubmissions: defineTable({
-    name: v.string(),
+    firstName: v.string(),
+    lastName: v.string(),
     phone: v.string(),
+    phoneType: v.string(), // "cell", "landline", "not-sure"
     email: v.optional(v.string()),
     address: v.optional(v.string()),
     serviceType: v.string(),        // "repair", "re-stretch", "new-install", "other"
