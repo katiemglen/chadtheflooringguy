@@ -29,11 +29,13 @@ export default function Home() {
       <Navbar config={config} />
       <Hero config={config} />
       <NeighborhoodFavorite />
+      <ReviewLinks variant="top" />
       <RepairServices services={primaryServices} />
       <InstallServices services={standardServices} />
       <AdditionalServices services={additionalServices} />
       <Testimonials testimonials={testimonials || []} />
       <Tips tips={tips || []} />
+      <ReviewLinks variant="middle" />
       <BidForm />
       <Faqs faqs={faqs || []} />
       <Footer config={config} />
@@ -141,6 +143,72 @@ function NeighborhoodFavorite() {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ==================== REVIEW LINKS ==================== */
+function ReviewLinks({ variant }: { variant: "top" | "middle" }) {
+  const reviewLinks = [
+    { name: "Nextdoor", icon: "💚", url: "https://nextdoor.com/pages/chad-the-flooring-guy-woodbury-mn/", color: "#00B246" },
+    { name: "Facebook", icon: "💙", url: "https://www.facebook.com/ChadTheFlooringGuy/reviews/", color: "#1877F2" },
+    { name: "Google", icon: "⭐", url: "https://g.page/r/CVK6CXEcVKk1EAg/review", color: "#4285F4" },
+  ];
+
+  const isTop = variant === "top";
+
+  return (
+    <section style={{ padding: isTop ? "60px 0" : "80px 0", background: isTop ? "var(--bg-section)" : "var(--charcoal)" }}>
+      <div className="container" style={{ textAlign: "center", maxWidth: 700 }}>
+        {isTop ? (
+          <>
+            <h2 style={{ fontSize: "1.5rem", fontWeight: 900, marginBottom: 8, color: "var(--charcoal)" }}>
+              See What Our Neighbors Are Saying
+            </h2>
+            <p style={{ color: "var(--text-dim)", lineHeight: 1.8, marginBottom: 24, fontSize: "0.95rem" }}>
+              Want to learn more about Chad&apos;s process and see his work? Read reviews from real neighbors who&apos;ve trusted Chad with their floors — and see why they keep recommending him.
+            </p>
+          </>
+        ) : (
+          <>
+            <h2 style={{ fontSize: "1.5rem", fontWeight: 900, marginBottom: 8, color: "#fff" }}>
+              Loved Your Experience? Leave a Review! 🥰
+            </h2>
+            <p style={{ color: "rgba(255,255,255,0.7)", lineHeight: 1.8, marginBottom: 24, fontSize: "0.95rem" }}>
+              Your review helps other neighbors find quality flooring help. We REALLY appreciate it — every review makes a difference!
+            </p>
+          </>
+        )}
+        <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
+          {reviewLinks.map((r) => (
+            <a
+              key={r.name}
+              href={r.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                padding: "14px 28px",
+                borderRadius: 12,
+                background: isTop ? "#fff" : "rgba(255,255,255,0.1)",
+                border: isTop ? "1px solid var(--border)" : "1px solid rgba(255,255,255,0.15)",
+                textDecoration: "none",
+                color: isTop ? "var(--charcoal)" : "#fff",
+                fontWeight: 700,
+                fontSize: "0.95rem",
+                transition: "transform 0.2s, box-shadow 0.2s",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = `0 4px 12px ${r.color}30`; }}
+              onMouseLeave={(e) => { e.currentTarget.style.transform = ""; e.currentTarget.style.boxShadow = ""; }}
+            >
+              <span style={{ fontSize: "1.2rem" }}>{r.icon}</span>
+              {isTop ? `Read on ${r.name}` : `Review on ${r.name}`}
+            </a>
+          ))}
         </div>
       </div>
     </section>
