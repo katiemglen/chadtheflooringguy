@@ -2,13 +2,15 @@
 
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
-import { useState, useRef, FormEvent } from "react";
+import { useState, useRef, useEffect, useCallback, FormEvent } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { tipPosts } from "./tips/data"; // used by TipsPreview
 
 export default function Home() {
   const config = useQuery(api.queries.getSiteConfig);
   const services = useQuery(api.queries.getActiveServices);
   const testimonials = useQuery(api.queries.getTestimonials);
-  const faqs = useQuery(api.queries.getFaqs);
   const tips = useQuery(api.queries.getTips);
 
   if (!config) return (
@@ -26,18 +28,20 @@ export default function Home() {
 
   return (
     <>
+      <ScrollProgress />
+      <BackToTop />
       <Navbar config={config} />
       <Hero config={config} />
       <NeighborhoodFavorite />
       <ReviewLinks variant="top" />
+      <MeetUs />
       <RepairServices services={primaryServices} />
       <InstallServices services={standardServices} />
       <AdditionalServices services={additionalServices} />
+      <GalleryPreview />
       <Testimonials testimonials={testimonials || []} />
-      <Tips tips={tips || []} />
       <ReviewLinks variant="middle" />
       <BidForm />
-      <Faqs faqs={faqs || []} />
       <Footer config={config} />
     </>
   );
@@ -49,9 +53,10 @@ function Navbar({ config }: { config: Record<string, string> }) {
   const links = [
     { href: "#services", label: "Services" },
     { href: "#reviews", label: "Reviews" },
-    { href: "#tips", label: "Tips" },
+    { href: "/tips", label: "Tips" },
+    { href: "/gallery", label: "Gallery" },
+    { href: "/faq", label: "FAQ" },
     { href: "#bid", label: "Get a Bid" },
-    { href: "#faq", label: "FAQ" },
   ];
   return (
     <nav>
@@ -90,29 +95,46 @@ function Navbar({ config }: { config: Record<string, string> }) {
 /* ==================== HERO ==================== */
 function Hero({ config }: { config: Record<string, string> }) {
   return (
-    <section style={{ position: "relative", minHeight: "90vh", display: "flex", alignItems: "center", paddingTop: 72, background: `linear-gradient(135deg, var(--bg) 0%, var(--bg-section) 50%, rgba(46,83,57,0.05) 100%)` }}>
-      <div className="container" style={{ textAlign: "center", padding: "60px 20px" }}>
-        <div className="badge badge-forest" style={{ marginBottom: 20 }}>
-          ⭐ Nextdoor Neighborhood Favorite — Multiple Years Running
-        </div>
-        <h1 className="fade-up" style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)", fontWeight: 900, lineHeight: 1.15, marginBottom: 20, color: "var(--charcoal)" }}>
-          Repairing Your Floors<br />
-          <span style={{ color: "var(--gold)" }}>Saves You Time & Money</span>
-        </h1>
-        <p style={{ fontSize: "1.15rem", color: "var(--text-dim)", maxWidth: 650, margin: "0 auto 16px", lineHeight: 1.7 }}>
-          Expert flooring repair and installation in {config.serviceArea || "Woodbury, MN"}.
-          20+ years of experience. Text photos for a fast estimate!
-        </p>
-        <p style={{ fontSize: "0.95rem", color: "var(--text-dim)", maxWidth: 500, margin: "0 auto 32px", lineHeight: 1.7 }}>
-          Most people don&apos;t know who to call for flooring repairs. Now you do.
-        </p>
-        <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
-          <a href="#bid" className="btn btn-primary" style={{ fontSize: "1.1rem" }}>📸 Get a Free Bid</a>
-          <a href="tel:6513536238" className="btn btn-outline">📞 Call 651-353-6238</a>
+    <section style={{ position: "relative", minHeight: "90vh", display: "flex", alignItems: "center", paddingTop: 72, overflow: "hidden" }}>
+      <Image
+        src="/photos/hero-lvp-fireplace.jpg"
+        alt="Beautiful LVP flooring by Chad the Flooring Guy"
+        fill
+        priority
+        style={{ objectFit: "cover", zIndex: 0 }}
+        sizes="100vw"
+      />
+      {/* Top gradient + blur overlay */}
+      <div style={{
+        position: "absolute", top: 0, left: 0, right: 0, height: "40%", zIndex: 1,
+        background: "linear-gradient(to bottom, rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.30) 50%, transparent 100%)",
+        backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)",
+        maskImage: "linear-gradient(to bottom, black 0%, black 40%, transparent 100%)",
+        WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 40%, transparent 100%)",
+      }} />
+      <div className="container" style={{ textAlign: "center", padding: "60px 20px", position: "relative", zIndex: 2 }}>
+        <div className="hero-text-box" style={{ background: "rgba(0, 0, 0, 0.55)", borderRadius: 24, padding: "48px 56px", backdropFilter: "blur(8px)", maxWidth: 700, margin: "0 auto" }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 16px", borderRadius: 100, fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px", background: "rgba(196,136,42,0.2)", color: "var(--gold)", border: "1px solid rgba(196,136,42,0.4)", marginBottom: 20 }}>
+            ⭐ Nextdoor Neighborhood Favorite — Multiple Years Running
+          </div>
+          <h1 className="fade-up" style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)", fontWeight: 900, lineHeight: 1.15, marginBottom: 20, color: "#ffffff" }}>
+            Repairing Your Floors<br />
+            <span style={{ color: "var(--gold)" }}>Saves You Time & Money</span>
+          </h1>
+          <p style={{ fontSize: "1.15rem", color: "rgba(255,255,255,0.85)", maxWidth: 650, margin: "0 auto 16px", lineHeight: 1.7 }}>
+            Expert flooring repair and installation in {config.serviceArea || "Woodbury, MN"}.
+            20+ years of experience. Text photos for a fast estimate!
+          </p>
+          <p style={{ fontSize: "0.95rem", color: "rgba(255,255,255,0.85)", maxWidth: 500, margin: "0 auto 32px", lineHeight: 1.7 }}>
+            Most people don&apos;t know who to call for flooring repairs. Now you do.
+          </p>
+          <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
+            <a href="#bid" className="btn btn-primary" style={{ fontSize: "1.1rem" }}>📸 Get a Free Bid</a>
+            <a href="tel:6513536238" className="btn btn-outline">📞 Call 651-353-6238</a>
+          </div>
         </div>
       </div>
-      {/* Placeholder for hero image */}
-      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 80, background: "linear-gradient(to bottom, transparent, var(--bg))" }} />
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 80, background: "linear-gradient(to bottom, transparent, var(--bg))", zIndex: 2 }} />
     </section>
   );
 }
@@ -122,13 +144,12 @@ function NeighborhoodFavorite() {
   return (
     <section style={{ padding: "60px 0", background: "var(--charcoal)", color: "#fff" }}>
       <div className="container" style={{ textAlign: "center" }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 40, flexWrap: "wrap" }}>
+        <div className="stats-row" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 40, flexWrap: "wrap" }}>
           <div>
             <div style={{ fontSize: "3rem", marginBottom: 8 }}>🏆</div>
             <h3 style={{ fontSize: "1.5rem", fontWeight: 900, marginBottom: 8 }}>Nextdoor Neighborhood Favorite</h3>
             <p style={{ color: "rgba(255,255,255,0.7)", maxWidth: 500, margin: "0 auto", lineHeight: 1.7 }}>
-              Awarded multiple years in a row. When your neighbors need flooring help, they recommend Chad.
-              Word-of-mouth is our #1 growth engine — because quality work speaks for itself.
+              Multiple years running. Your neighbors recommend me because the work speaks for itself.
             </p>
           </div>
           <div style={{ display: "flex", gap: 32, flexWrap: "wrap", justifyContent: "center" }}>
@@ -168,7 +189,7 @@ function ReviewLinks({ variant }: { variant: "top" | "middle" }) {
               See What Our Neighbors Are Saying
             </h2>
             <p style={{ color: "var(--text-dim)", lineHeight: 1.8, marginBottom: 24, fontSize: "0.95rem" }}>
-              Want to learn more about Chad&apos;s process and see his work? Read reviews from real neighbors who&apos;ve trusted Chad with their floors — and see why they keep recommending him.
+              Real reviews from real neighbors. See why they keep calling back.
             </p>
           </>
         ) : (
@@ -177,23 +198,27 @@ function ReviewLinks({ variant }: { variant: "top" | "middle" }) {
               Loved Your Experience? Leave a Review! 🥰
             </h2>
             <p style={{ color: "rgba(255,255,255,0.7)", lineHeight: 1.8, marginBottom: 24, fontSize: "0.95rem" }}>
-              Your review helps other neighbors find quality flooring help. We REALLY appreciate it — every review makes a difference!
+              Had a good experience? A quick review helps other neighbors find me. Appreciate it.
             </p>
           </>
         )}
-        <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
+        <ScrollAnimate stagger>
+        <div className="scroll-animate-stagger" style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
           {reviewLinks.map((r) => (
             <a
               key={r.name}
               href={r.url}
               target="_blank"
               rel="noopener noreferrer"
+              className="review-btn scroll-animate"
               style={{
                 display: "flex",
                 alignItems: "center",
+                justifyContent: "center",
                 gap: 10,
                 padding: "14px 28px",
                 borderRadius: 12,
+                minWidth: 180,
                 background: isTop ? "#fff" : "rgba(255,255,255,0.1)",
                 border: isTop ? "1px solid var(--border)" : "1px solid rgba(255,255,255,0.15)",
                 textDecoration: "none",
@@ -210,6 +235,7 @@ function ReviewLinks({ variant }: { variant: "top" | "middle" }) {
             </a>
           ))}
         </div>
+        </ScrollAnimate>
       </div>
     </section>
   );
@@ -220,24 +246,21 @@ function RepairServices({ services }: { services: any[] }) {
   return (
     <section id="services" style={{ padding: "100px 0" }}>
       <div className="container">
-        <div className="section-head">
+        <ScrollAnimate><div className="section-head scroll-animate">
           <div className="badge badge-gold" style={{ marginBottom: 12 }}>🥇 Our Specialty</div>
           <h2>Flooring Repair & Re-Stretching</h2>
           <div className="section-bar" />
           <p>
-            Flooring repair specialists are hard to find. Most people don&apos;t even know this service exists.
-            Chad is one of the few — and he&apos;s been doing it for 20+ years.
+            Most people don&apos;t even know flooring repair exists. I&apos;ve been doing it for 20+ years.
           </p>
           <p style={{ color: "var(--text-dim)", maxWidth: 700, margin: "16px auto 0", lineHeight: 1.8, fontSize: "0.95rem" }}>
-            Some fixes are quick wins — a simple seam repair, a small patch, or a single transition fix. With over 20 years of experience, Chad can often knock these out efficiently and have your floors looking perfect in no time.
+            Some fixes take a couple hours — a seam, a patch, a transition. Other jobs are bigger — full house re-stretching, multiple rooms, years of damage. Either way, I&apos;ll walk you through it before any work starts.
           </p>
-          <p style={{ color: "var(--text-dim)", maxWidth: 700, margin: "12px auto 0", lineHeight: 1.8, fontSize: "0.95rem" }}>
-            Other projects are a different story. An entire house that needs re-stretching, multiple doorway transitions, extensive damage across several rooms — these are the jobs that challenge every tool in Chad&apos;s toolbox and every bit of expertise he&apos;s built over two decades. Think of it like this: sometimes it&apos;s one job, and sometimes it&apos;s four jobs rolled into one. The price reflects the scope, the skill required, and the time it takes to get it done right. Either way, Chad will walk you through exactly what&apos;s needed before any work begins — no surprises.
-          </p>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20, maxWidth: 700, margin: "0 auto" }}>
+        </div></ScrollAnimate>
+        <ScrollAnimate stagger>
+        <div className="grid-2col scroll-animate-stagger" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20, maxWidth: 700, margin: "0 auto" }}>
           {services.map((s) => (
-            <div key={s._id} className="card" style={{ padding: 28, textAlign: "center" }}>
+            <div key={s._id} className="glass-card scroll-animate" style={{ padding: 28, textAlign: "center" }}>
               <div style={{ fontSize: "2rem", marginBottom: 12 }}>{s.icon}</div>
               <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: 4 }}>{s.name}</h3>
               {s.priceRange && <p style={{ color: "var(--gold-dark)", fontSize: "0.85rem", fontWeight: 700, marginBottom: 8 }}>{s.priceRange}</p>}
@@ -254,6 +277,7 @@ function RepairServices({ services }: { services: any[] }) {
             </div>
           ))}
         </div>
+        </ScrollAnimate>
         <div style={{ textAlign: "center", marginTop: 32 }}>
           <a href="#bid" className="btn btn-primary">📸 Send Photos for a Free Estimate</a>
         </div>
@@ -271,11 +295,12 @@ function InstallServices({ services }: { services: any[] }) {
           <div className="badge badge-forest" style={{ marginBottom: 12 }}>🥈 Installation</div>
           <h2>New Flooring Installation</h2>
           <div className="section-bar" />
-          <p>Full room or whole house — Chad installs it right the first time and helps you source the best materials at the best price.</p>
+          <p>Full room or whole house. Installed right the first time. I&apos;ll help you find the best materials at the best price.</p>
         </div>
-        <div style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap" }}>
+        <ScrollAnimate stagger>
+        <div className="scroll-animate-stagger" style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap" }}>
           {services.map((s) => (
-            <div key={s._id} className="card" style={{ padding: 28, textAlign: "center", maxWidth: 380, width: "100%" }}>
+            <div key={s._id} className="glass-card scroll-animate" style={{ padding: 28, textAlign: "center", maxWidth: 380, width: "100%" }}>
               <div style={{ fontSize: "2rem", marginBottom: 12 }}>{s.icon}</div>
               <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: 8 }}>{s.name}</h3>
               <p style={{ color: "var(--text-dim)", fontSize: "0.9rem", lineHeight: 1.7, marginBottom: 16 }}>{s.description}</p>
@@ -294,6 +319,7 @@ function InstallServices({ services }: { services: any[] }) {
             </div>
           ))}
         </div>
+        </ScrollAnimate>
       </div>
     </section>
   );
@@ -308,11 +334,12 @@ function AdditionalServices({ services }: { services: any[] }) {
         <div className="section-head">
           <h2 style={{ fontSize: "1.5rem" }}>Additional Services</h2>
           <div className="section-bar" />
-          <p style={{ fontSize: "0.95rem" }}>Available for the right project. Contact Chad for a custom quote.</p>
+          <p style={{ fontSize: "0.95rem" }}>Custom quotes. Reach out to discuss your project.</p>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20, maxWidth: 700, margin: "0 auto", justifyItems: "center" }}>
+        <ScrollAnimate stagger>
+        <div className="scroll-animate-stagger" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20, maxWidth: 700, margin: "0 auto", alignItems: "stretch" }}>
           {services.map((s) => (
-            <div key={s._id} className="card" style={{ padding: 24, textAlign: "center" }}>
+            <div key={s._id} className="glass-card scroll-animate" style={{ padding: 24, textAlign: "center" }}>
               <div style={{ marginBottom: 8 }}>
                 <span style={{ fontSize: "1.5rem" }}>{s.icon}</span>
               </div>
@@ -321,6 +348,7 @@ function AdditionalServices({ services }: { services: any[] }) {
             </div>
           ))}
         </div>
+        </ScrollAnimate>
       </div>
     </section>
   );
@@ -335,11 +363,12 @@ function Testimonials({ testimonials }: { testimonials: any[] }) {
         <div className="section-head">
           <h2>What Your Neighbors Say</h2>
           <div className="section-bar" />
-          <p>Real reviews from real neighbors. Chad&apos;s reputation is built one repair at a time.</p>
+          <p>Built one repair and install at a time.</p>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: 20 }}>
+        <ScrollAnimate stagger>
+        <div className="grid-testimonials scroll-animate-stagger" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: 20 }}>
           {testimonials.map((t) => (
-            <div key={t._id} className="card" style={{ padding: 28 }}>
+            <div key={t._id} className="glass-card scroll-animate" style={{ padding: 28 }}>
               {t.rating && <div style={{ marginBottom: 12 }}>{"⭐".repeat(t.rating)}</div>}
               <p style={{ color: "var(--text-dim)", lineHeight: 1.7, fontStyle: "italic", marginBottom: 16, fontSize: "0.95rem" }}>&ldquo;{t.text}&rdquo;</p>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -352,35 +381,13 @@ function Testimonials({ testimonials }: { testimonials: any[] }) {
             </div>
           ))}
         </div>
+        </ScrollAnimate>
       </div>
     </section>
   );
 }
 
-/* ==================== TIPS ==================== */
-function Tips({ tips }: { tips: any[] }) {
-  if (tips.length === 0) return null;
-  return (
-    <section id="tips" style={{ padding: "80px 0" }}>
-      <div className="container">
-        <div className="section-head">
-          <h2>Flooring Tips from Chad</h2>
-          <div className="section-bar" />
-          <p>Knowledge is power. Here&apos;s what Chad wants every homeowner to know.</p>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 20 }}>
-          {tips.map((t) => (
-            <div key={t._id} className="card" style={{ padding: 24 }}>
-              <div style={{ fontSize: "2rem", marginBottom: 8 }}>{t.icon}</div>
-              <h3 style={{ fontSize: "1rem", fontWeight: 800, marginBottom: 8, color: "var(--charcoal)" }}>{t.title}</h3>
-              <p style={{ color: "var(--text-dim)", fontSize: "0.85rem", lineHeight: 1.7 }}>{t.content}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+/* (Old Convex tips section replaced by TipsPreview above) */
 
 /* ==================== BID FORM ==================== */
 function BidForm() {
@@ -504,11 +511,11 @@ function BidForm() {
         <div className="section-head">
           <h2>Get a Free Bid</h2>
           <div className="section-bar" />
-          <p>Fill out the form below and Chad will get back to you — usually within 24 hours. Sending a text with photos is the fastest way to get an estimate! If you&apos;d prefer to call Chad directly, you can reach him at <a href="tel:6513536238" style={{ color: "var(--gold)", fontWeight: 700 }}>651-353-6238</a> — he&apos;s usually on a job, so texting is more efficient, but he&apos;s always happy to chat when he&apos;s free!</p>
+          <p>Send photos, get an estimate. Usually within 24 hours. Call or text <a href="tel:6513536238" style={{ color: "var(--gold)", fontWeight: 700 }}>651-353-6238</a>.</p>
         </div>
-        <form onSubmit={handleSubmit} className="card" style={{ padding: 36 }}>
+        <form onSubmit={handleSubmit} className="card" style={{ padding: 36, background: "rgba(255,255,255,0.65)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.3)", boxShadow: "0 4px 24px rgba(0,0,0,0.06)" }}>
           {/* First & Last Name */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <div className="grid-form-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             <div className="form-group">
               <label className="form-label">First Name *</label>
               <input className="form-input" required value={form.firstName} onChange={e => updateField("firstName", e.target.value)} placeholder="First name" />
@@ -519,7 +526,7 @@ function BidForm() {
             </div>
           </div>
           {/* Phone & Phone Type */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <div className="grid-form-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             <div className="form-group">
               <label className="form-label">Phone *</label>
               <input className="form-input" required type="tel" value={form.phone} onChange={e => updateField("phone", e.target.value)} placeholder="651-555-1234" />
@@ -535,7 +542,7 @@ function BidForm() {
           </div>
 
           {/* Email & Address */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <div className="grid-form-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             <div className="form-group">
               <label className="form-label">Email <span style={{ color: "var(--text-light)", fontWeight: 400 }}>(optional)</span></label>
               <input className="form-input" type="email" value={form.email} onChange={e => updateField("email", e.target.value)} placeholder="you@email.com" />
@@ -547,7 +554,7 @@ function BidForm() {
           </div>
 
           {/* Service & Flooring Type */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <div className="grid-form-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             <div className="form-group">
               <label className="form-label">Type of Service *</label>
               <select className="form-select" required value={form.serviceType} onChange={e => updateField("serviceType", e.target.value)}>
@@ -572,7 +579,7 @@ function BidForm() {
           </div>
 
           {/* Square Footage & Timeline */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <div className="grid-form-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             <div className="form-group">
               <label className="form-label">Square Footage / Room Size <span style={{ color: "var(--text-light)", fontWeight: 400 }}>(optional)</span></label>
               <input className="form-input" value={form.squareFootage} onChange={e => updateField("squareFootage", e.target.value)} placeholder="e.g., 200 sqft, 12x15 room, or 'not sure'" />
@@ -662,28 +669,214 @@ function BidForm() {
   );
 }
 
-/* ==================== FAQ ==================== */
-function Faqs({ faqs }: { faqs: any[] }) {
-  const [open, setOpen] = useState<string | null>(null);
-  if (faqs.length === 0) return null;
+/* (FAQ moved to /faq page) */
+
+/* ==================== MEET US ==================== */
+function MeetUs() {
   return (
-    <section id="faq" style={{ padding: "100px 0" }}>
-      <div className="container" style={{ maxWidth: 800 }}>
+    <section id="about" style={{ padding: "80px 0", background: "var(--bg)" }}>
+      <div className="container">
         <div className="section-head">
-          <h2>Frequently Asked Questions</h2>
+          <div className="badge badge-forest" style={{ marginBottom: 12 }}>👋 Meet Us</div>
+          <h2>Your Neighbors, Not a Corporation</h2>
           <div className="section-bar" />
         </div>
-        {faqs.map((f) => (
-          <div key={f._id} className="faq-item">
-            <button className="faq-q" onClick={() => setOpen(open === f._id ? null : f._id)}>
-              {f.question}
-              <span style={{ fontSize: "1.2rem", transition: "transform 0.3s", transform: open === f._id ? "rotate(45deg)" : "none", color: "var(--gold)" }}>+</span>
-            </button>
-            {open === f._id && <div className="faq-a">{f.answer}</div>}
+        <div className="grid-meet-us" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40, alignItems: "center", maxWidth: 900, margin: "0 auto" }}>
+          <ScrollAnimate><div className="photo-hover-subtle scroll-animate" style={{ position: "relative", borderRadius: 20, overflow: "hidden", height: 450 }}>
+            <Image
+              src="/photos/chad-katie-smiling.jpg"
+              alt="Chad and Katie — the husband-and-wife team behind Chad the Flooring Guy"
+              fill
+              style={{ objectFit: "cover", objectPosition: "center 20%" }}
+              sizes="(max-width: 768px) 100vw, 450px"
+            />
+          </div></ScrollAnimate>
+          <div>
+            <h3 style={{ fontSize: "1.5rem", fontWeight: 900, color: "var(--charcoal)", marginBottom: 16 }}>
+              Hey, that&apos;s Chad! 👋
+            </h3>
+            <p style={{ color: "var(--text-dim)", lineHeight: 1.8, fontSize: "1rem", marginBottom: 16 }}>
+              20+ years in flooring. Repair and re-stretching specialist. Based in Woodbury, MN.
+            </p>
+            <p style={{ color: "var(--text-dim)", lineHeight: 1.8, fontSize: "1rem", marginBottom: 16 }}>
+              Chad&apos;s the guy who actually shows up, does the work, and makes your floors look right. No sales team, no subcontractors — just a guy who&apos;s really good at what he does and treats every home like his own.
+            </p>
+            <p style={{ color: "var(--text-dim)", lineHeight: 1.8, fontSize: "1rem" }}>
+              Text him photos, get a straight answer. That&apos;s how it works. 🔨
+            </p>
           </div>
-        ))}
+        </div>
       </div>
     </section>
+  );
+}
+
+/* ==================== TIPS PREVIEW ==================== */
+function TipsPreview() {
+  const previewTips = tipPosts.slice(0, 3);
+  return (
+    <section id="tips" style={{ padding: "80px 0" }}>
+      <div className="container">
+        <div className="section-head">
+          <div className="badge badge-gold" style={{ marginBottom: 12 }}>💡 From Katie&apos;s Desk</div>
+          <h2>Floor Care Tips</h2>
+          <div className="section-bar" />
+          <p>Real talk about taking care of your floors — from someone who lives with a flooring guy. 😄</p>
+        </div>
+        <ScrollAnimate stagger>
+        <div className="scroll-animate-stagger" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: 24 }}>
+          {previewTips.map((tip) => (
+            <Link key={tip.slug} href={`/tips/${tip.slug}`} style={{ textDecoration: "none", color: "inherit" }} className="scroll-animate">
+              <div className="glass-card tip-card-hover" style={{ overflow: "hidden", height: "100%", display: "flex", flexDirection: "column" }}>
+                <div style={{ position: "relative", width: "100%", height: 200 }}>
+                  <Image src={tip.photo} alt={tip.title} fill style={{ objectFit: "cover" }} sizes="(max-width: 768px) 100vw, 400px" />
+                </div>
+                <div style={{ padding: 20, flex: 1 }}>
+                  <h3 style={{ fontSize: "1rem", fontWeight: 800, marginBottom: 8, color: "var(--charcoal)" }}>{tip.emoji} {tip.title}</h3>
+                  <p style={{ color: "var(--text-dim)", fontSize: "0.85rem", lineHeight: 1.7 }}>{tip.preview}</p>
+                  <span style={{ color: "var(--gold)", fontWeight: 700, fontSize: "0.85rem", marginTop: 8, display: "inline-block" }}>Read More →</span>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+        </ScrollAnimate>
+        <div style={{ textAlign: "center", marginTop: 32 }}>
+          <Link href="/tips" className="btn btn-outline" style={{ padding: "12px 28px", fontSize: "0.95rem" }}>
+            See All Tips →
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ==================== GALLERY PREVIEW ==================== */
+function GalleryPreview() {
+  const previewPhotos = [
+    { src: "/photos/gallery-styled-closeup.jpg", alt: "Styled floor close-up" },
+    { src: "/photos/gallery-kitchen-lvp.jpg", alt: "Finished LVP kitchen" },
+    { src: "/photos/gallery-living-warm-fireplace.jpg", alt: "Living room warm-tone wood" },
+    { src: "/photos/gallery-living-dining-grey.jpg", alt: "Open living and dining with light grey LVP" },
+  ];
+  return (
+    <section style={{ padding: "80px 0", background: "var(--bg-section)" }}>
+      <div className="container">
+        <div className="section-head">
+          <div className="badge badge-forest" style={{ marginBottom: 12 }}>📸 Our Work</div>
+          <h2>Project Gallery</h2>
+          <div className="section-bar" />
+          <p>Real projects. Real results.</p>
+        </div>
+        <ScrollAnimate stagger>
+        <div className="grid-4col scroll-animate-stagger" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, maxWidth: 900, margin: "0 auto" }}>
+          {previewPhotos.map((photo, i) => (
+            <Link key={i} href="/gallery" style={{ textDecoration: "none" }} className="scroll-animate">
+              <div className="photo-hover" style={{ position: "relative", borderRadius: 16, overflow: "hidden", height: 200 }}>
+                <Image src={photo.src} alt={photo.alt} fill style={{ objectFit: "cover" }} sizes="(max-width: 768px) 50vw, 225px" />
+              </div>
+            </Link>
+          ))}
+        </div>
+        </ScrollAnimate>
+        <ScrollAnimate><div className="before-after-img scroll-animate" style={{ maxWidth: 900, margin: "24px auto 0", position: "relative", borderRadius: 20, overflow: "hidden", height: 400 }}>
+          <Image
+            src="/photos/gallery-before-after-stretch.jpg"
+            alt="Before & after carpet stretching"
+            fill
+            style={{ objectFit: "cover" }}
+            sizes="(max-width: 768px) 100vw, 900px"
+          />
+        </div></ScrollAnimate>
+        <div style={{ textAlign: "center", marginTop: 32 }}>
+          <Link href="/gallery" className="btn btn-outline" style={{ padding: "12px 28px", fontSize: "0.95rem" }}>
+            View Full Gallery →
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ==================== SCROLL PROGRESS ==================== */
+function ScrollProgress() {
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(docHeight > 0 ? scrollTop / docHeight : 0);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  return (
+    <div style={{ position: "fixed", left: 0, top: 0, width: 4, height: "100vh", zIndex: 90, background: "var(--bg-section)" }}>
+      <div style={{ width: "100%", height: `${progress * 100}%`, background: "var(--gold)", transition: "height 0.1s linear" }} />
+    </div>
+  );
+}
+
+/* ==================== BACK TO TOP ==================== */
+function BackToTop() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => setVisible(window.scrollY > 500);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  return (
+    <button
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      aria-label="Back to top"
+      style={{
+        position: "fixed", bottom: 24, right: 24, zIndex: 90,
+        width: 48, height: 48, borderRadius: "50%",
+        background: "var(--charcoal)", color: "#fff",
+        border: "none", cursor: "pointer",
+        fontSize: "1.3rem", display: "flex", alignItems: "center", justifyContent: "center",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+        opacity: visible ? 1 : 0,
+        pointerEvents: visible ? "auto" : "none",
+        transition: "opacity 0.3s ease",
+      }}
+    >↑</button>
+  );
+}
+
+/* ==================== SCROLL ANIMATE ==================== */
+function useScrollAnimation() {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-in");
+            // Also animate children with scroll-animate class
+            entry.target.querySelectorAll(".scroll-animate").forEach((child) => child.classList.add("animate-in"));
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    );
+    // Observe the element itself
+    if (el.classList.contains("scroll-animate")) observer.observe(el);
+    // Observe children
+    el.querySelectorAll(".scroll-animate").forEach((child) => observer.observe(child));
+    return () => observer.disconnect();
+  }, []);
+  return ref;
+}
+
+function ScrollAnimate({ children, className = "", stagger = false }: { children: React.ReactNode; className?: string; stagger?: boolean }) {
+  const ref = useScrollAnimation();
+  return (
+    <div ref={ref} className={stagger ? `scroll-animate-stagger ${className}` : className}>
+      {children}
+    </div>
   );
 }
 
@@ -692,11 +885,11 @@ function Footer({ config }: { config: Record<string, string> }) {
   return (
     <footer style={{ background: "var(--charcoal)", color: "#fff", padding: "60px 0 40px" }}>
       <div className="container">
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 40, marginBottom: 40 }}>
+        <div className="grid-footer" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 40, marginBottom: 40 }}>
           <div>
             <h3 style={{ fontSize: "1.2rem", fontWeight: 900, marginBottom: 12 }}>🔨 Chad the Flooring Guy</h3>
             <p style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.7, fontSize: "0.9rem" }}>
-              Expert flooring repair and installation serving {config.serviceArea}. 20+ years of experience. Nextdoor Neighborhood Favorite.
+              Flooring repair &amp; installation. {config.serviceArea}. 20+ years. Nextdoor Neighborhood Favorite.
             </p>
             <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.8rem", marginTop: 12 }}>Anthony Marie LLC</p>
           </div>

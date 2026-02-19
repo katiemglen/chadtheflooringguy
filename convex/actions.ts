@@ -92,7 +92,7 @@ ${siteUrl}/admin`;
           "Authorization": `Bearer ${resendKey}`,
         },
         body: JSON.stringify({
-          from: "Chad the Flooring Guy <notifications@chadtheflooringguy.vercel.app>",
+          from: "Chad the Flooring Guy <onboarding@resend.dev>",
           to: [smsGateway],
           subject: `🔨 New Bid: ${args.firstName} ${args.lastName} - ${serviceLabels[args.serviceType] || args.serviceType}`,
           text: message,
