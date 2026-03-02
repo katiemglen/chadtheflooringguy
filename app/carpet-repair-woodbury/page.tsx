@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Carpet Repair Woodbury MN | Wrinkles, Pet Damage, Seam Fixes — Chad the Flooring Guy",
+  title: "Carpet Repair Woodbury MN | Wrinkles, Pet Damage, Seam Fixes — Chad Bublitz",
   description: "Expert carpet repair in Woodbury MN. Wrinkle removal, pet damage patches, seam repairs, re-stretching. 20+ years insured. Itemized quotes + DIY savings. Text photos: 651.353.6238.",
   alternates: { canonical: "https://chadtheflooringguy.vercel.app/carpet-repair-woodbury" },
 };

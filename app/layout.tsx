@@ -4,12 +4,12 @@ import ConvexClientProvider from "./ConvexClientProvider";
 import SEOContent from "./components/SEOContent";
 
 export const metadata: Metadata = {
-  title: "Chad the Flooring Guy | Expert Flooring Repair in Woodbury MN & Washington County",
+  title: "Chad Bublitz | Flooring Repair Woodbury MN & Washington County — The Flooring Guy",
   description:
-    "20+ years insured expert repairs — carpet, LVP, hardwood. Transparent itemized quotes & DIY savings. Text photos for free quote: 651.353.6238. Woodbury, Stillwater, Hastings, Hudson.",
+    "20+ years insured expert repairs — carpet, LVP, hardwood. Itemized quotes + DIY savings. Text photos for fast quote: 651.353.6238. Woodbury, Stillwater, Hastings, Hudson.",
   robots: "index, follow",
   openGraph: {
-    title: "Chad the Flooring Guy | Flooring Repair & Installation — Woodbury MN",
+    title: "Chad Bublitz | Flooring Repair & Installation — Woodbury MN",
     description:
       "Expert flooring repair in Woodbury MN & Washington County. Carpet wrinkles, LVP board replacement, pet damage, transitions. 20+ years insured. Text photos for free quote: 651.353.6238.",
     url: "https://chadtheflooringguy.vercel.app/",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Chad the Flooring Guy | Flooring Repair — Woodbury MN",
+    title: "Chad Bublitz | Flooring Repair — Woodbury MN",
     description:
       "20+ years insured. Carpet repair, LVP repair, hardwood fixes. Itemized quotes + DIY savings. Text photos: 651.353.6238.",
   },
@@ -32,7 +32,7 @@ const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "HomeAndConstructionBusiness",
   "@id": "https://chadtheflooringguy.vercel.app/#organization",
-  name: "Chad the Flooring Guy",
+  name: "Chad Bublitz – The Flooring Guy",
   alternateName: "Anthony Marie LLC",
   url: "https://chadtheflooringguy.vercel.app",
   telephone: "+1-651-353-6238",

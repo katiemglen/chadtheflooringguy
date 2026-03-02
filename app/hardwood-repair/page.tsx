@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Hardwood Floor Repair Washington County MN | Board Replacement, Scratches — Chad the Flooring Guy",
+  title: "Hardwood Floor Repair Washington County MN | Board Replacement, Scratches — Chad Bublitz",
   description: "Hardwood and engineered wood floor repair in Washington County MN. Board replacement, scratch repair, water damage fixes. 20+ years insured. Text photos: 651.353.6238.",
   alternates: { canonical: "https://chadtheflooringguy.vercel.app/hardwood-repair" },
 };

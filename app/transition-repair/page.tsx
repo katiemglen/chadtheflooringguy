@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Floor Transition Repair Woodbury MN | Doorways, Gaps, Thresholds — Chad the Flooring Guy",
+  title: "Floor Transition Repair Woodbury MN | Doorways, Gaps, Thresholds — Chad Bublitz",
   description: "Floor transition repair in Woodbury MN. Fix doorway gaps, broken threshold strips, uneven floor transitions. 20+ years insured. Text photos: 651.353.6238.",
   alternates: { canonical: "https://chadtheflooringguy.vercel.app/transition-repair" },
 };

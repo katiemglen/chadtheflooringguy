@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "LVP Repair Stillwater MN | Single-Board Replacement, Water Damage — Chad the Flooring Guy",
+  title: "LVP Repair Stillwater MN | Single-Board Replacement, Water Damage — Chad Bublitz",
   description: "LVP and vinyl plank repair in Stillwater MN & Washington County. Single-board replacement, click-lock fixes, water damage. 20+ years insured. Text photos: 651.353.6238.",
   alternates: { canonical: "https://chadtheflooringguy.vercel.app/lvp-repair-stillwater" },
 };

@@ -15,7 +15,7 @@ export default function SEOContent() {
       }}
       aria-hidden="true"
     >
-      <h1>Chad the Flooring Guy — Expert Flooring Repairs &amp; Installations in Woodbury, MN</h1>
+      <h1>Chad Bublitz – The Flooring Guy — Expert Flooring Repairs &amp; Installations in Woodbury, MN</h1>
       <p>20+ years insured expert. Transparent itemized quotes — you see every line item and choose what to DIY. Text photos for a free quote: 651-353-6238. Anthony Marie LLC.</p>
       <p>Repairing your floors saves you time &amp; money. Done right the first time.</p>
 
