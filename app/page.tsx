@@ -2,7 +2,7 @@
 
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
-import { useState, useRef, useEffect, useCallback, FormEvent } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { tipPosts } from "./tips/data"; // used by TipsPreview
@@ -391,279 +391,93 @@ function Testimonials({ testimonials }: { testimonials: any[] }) {
 
 /* ==================== BID FORM ==================== */
 function BidForm() {
-  const submitBid = useMutation(api.mutations.submitBid);
-  const generateUploadUrl = useMutation(api.mutations.generateUploadUrl);
-
-  const [submitted, setSubmitted] = useState(false);
-  const [hasPhotos, setHasPhotos] = useState(false);
-  const [uploading, setUploading] = useState(false);
-  const [files, setFiles] = useState<File[]>([]);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
-    phoneType: "",
-    email: "",
-    address: "",
-    serviceType: "",
-    flooringType: "",
-    squareFootage: "",
-    description: "",
-    timeline: "",
-    referralSource: "",
-  });
-
-  const updateField = (field: string, value: string) => setForm(prev => ({ ...prev, [field]: value }));
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const newFiles = Array.from(e.target.files);
-      setFiles(prev => [...prev, ...newFiles]);
-    }
-  };
-
-  const removeFile = (index: number) => {
-    setFiles(prev => prev.filter((_, i) => i !== index));
-  };
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setUploading(true);
-
-    try {
-      // Upload photos to Convex storage
-      const storageIds: string[] = [];
-      for (const file of files) {
-        const uploadUrl = await generateUploadUrl();
-        const result = await fetch(uploadUrl, {
-          method: "POST",
-          headers: { "Content-Type": file.type },
-          body: file,
-        });
-        const { storageId } = await result.json();
-        storageIds.push(storageId);
-      }
-
-      await submitBid({
-        firstName: form.firstName,
-        lastName: form.lastName,
-        phone: form.phone,
-        phoneType: form.phoneType,
-        email: form.email || undefined,
-        address: form.address || undefined,
-        serviceType: form.serviceType,
-        flooringType: form.flooringType,
-        photoStorageIds: storageIds.length > 0 ? storageIds : undefined,
-        squareFootage: form.squareFootage || undefined,
-        description: form.description,
-        timeline: form.timeline,
-        referralSource: form.referralSource,
-      });
-
-      setHasPhotos(storageIds.length > 0);
-      setSubmitted(true);
-    } catch (err) {
-      console.error("Submission error:", err);
-      alert("Something went wrong. Please try again or call Chad directly at 651-353-6238.");
-    } finally {
-      setUploading(false);
-    }
-  };
-
-  if (submitted) {
-    return (
-      <section id="bid" style={{ padding: "100px 0" }}>
-        <div className="container" style={{ maxWidth: 700 }}>
-          <div className="card gold-glow" style={{ padding: 48, textAlign: "center" }}>
-            <div style={{ fontSize: "3rem", marginBottom: 16 }}>🙌</div>
-            {hasPhotos ? (
-              <>
-                <h2 style={{ fontSize: "1.5rem", fontWeight: 900, marginBottom: 16 }}>Thank You!</h2>
-                <p style={{ color: "var(--text-dim)", lineHeight: 1.8, fontSize: "1.05rem" }}>
-                  Thank you for reaching out to Chad the Flooring Guy! We received your photos — Chad will review them and text you an estimate as soon as possible, usually within 24 hours. No need to call — sit tight and he&apos;ll come to you!
-                </p>
-                <p style={{ color: "var(--text-dim)", lineHeight: 1.8, fontSize: "1.05rem", marginTop: 16 }}>
-                  Have a great day! — Katie & Chad
-                </p>
-              </>
-            ) : (
-              <>
-                <h2 style={{ fontSize: "1.5rem", fontWeight: 900, marginBottom: 16 }}>Thank You!</h2>
-                <p style={{ color: "var(--text-dim)", lineHeight: 1.8, fontSize: "1.05rem" }}>
-                  Thank you for reaching out to Chad the Flooring Guy! Chad will give you a call or text to learn more about your project and may ask for a few photos to put together an accurate estimate. Expect to hear from him within 24 hours.
-                </p>
-                <p style={{ color: "var(--text-dim)", lineHeight: 1.8, fontSize: "1.05rem", marginTop: 16 }}>
-                  Have a great day! — Katie & Chad
-                </p>
-              </>
-            )}
-          </div>
-        </div>
-      </section>
-    );
-  }
-
   return (
-    <section id="bid" className="section-alt" style={{ padding: "100px 0" }}>
-      <div className="container" style={{ maxWidth: 800 }}>
+    <section id="bid" className="section-alt" style={{ padding: "80px 0" }}>
+      <div className="container" style={{ maxWidth: 900 }}>
         <div className="section-head">
-          <h2>Get a Free Bid</h2>
+          <h2>Ready to Repair Your Floors?</h2>
           <div className="section-bar" />
-          <p>Send photos, get an estimate. Usually within 24 hours. Call or text <a href="tel:6513536238" style={{ color: "var(--gold)", fontWeight: 700 }}>651-353-6238</a>.</p>
-        </div>
-        <form onSubmit={handleSubmit} className="card" style={{ padding: 36, background: "rgba(255,255,255,0.65)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.3)", boxShadow: "0 4px 24px rgba(0,0,0,0.06)" }}>
-          {/* First & Last Name */}
-          <div className="grid-form-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-            <div className="form-group">
-              <label className="form-label">First Name *</label>
-              <input className="form-input" required value={form.firstName} onChange={e => updateField("firstName", e.target.value)} placeholder="First name" />
-            </div>
-            <div className="form-group">
-              <label className="form-label">Last Name *</label>
-              <input className="form-input" required value={form.lastName} onChange={e => updateField("lastName", e.target.value)} placeholder="Last name" />
-            </div>
-          </div>
-          {/* Phone & Phone Type */}
-          <div className="grid-form-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-            <div className="form-group">
-              <label className="form-label">Phone *</label>
-              <input className="form-input" required type="tel" value={form.phone} onChange={e => updateField("phone", e.target.value)} placeholder="651-555-1234" />
-            </div>
-            <div className="form-group">
-              <label className="form-label">Phone Type *</label>
-              <select className="form-input" required value={form.phoneType} onChange={e => updateField("phoneType", e.target.value)}>
-                <option value="">Select...</option>
-                <option value="cell">📱 Cell Phone</option>
-                <option value="landline">📞 Landline</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Email & Address */}
-          <div className="grid-form-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-            <div className="form-group">
-              <label className="form-label">Email <span style={{ color: "var(--text-light)", fontWeight: 400 }}>(optional)</span></label>
-              <input className="form-input" type="email" value={form.email} onChange={e => updateField("email", e.target.value)} placeholder="you@email.com" />
-            </div>
-            <div className="form-group">
-              <label className="form-label">Address / Location</label>
-              <input className="form-input" value={form.address} onChange={e => updateField("address", e.target.value)} placeholder="Woodbury, MN" />
-            </div>
-          </div>
-
-          {/* Service & Flooring Type */}
-          <div className="grid-form-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-            <div className="form-group">
-              <label className="form-label">Type of Service *</label>
-              <select className="form-select" required value={form.serviceType} onChange={e => updateField("serviceType", e.target.value)}>
-                <option value="">Select a service...</option>
-                <option value="repair">🔧 Flooring Repair</option>
-                <option value="re-stretch">📐 Carpet Re-Stretching</option>
-                <option value="new-install">🏠 New Installation</option>
-                <option value="transition">🚪 Transition Repair</option>
-                <option value="other">💬 Other / Not Sure</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label className="form-label">Type of Flooring *</label>
-              <select className="form-select" required value={form.flooringType} onChange={e => updateField("flooringType", e.target.value)}>
-                <option value="">Select flooring type...</option>
-                <option value="carpet">Carpet</option>
-                <option value="lvp">Luxury Vinyl Plank (LVP)</option>
-                <option value="hardwood-engineered">Hardwood / Engineered Wood</option>
-                <option value="not-sure">Not Sure</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Square Footage & Timeline */}
-          <div className="grid-form-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-            <div className="form-group">
-              <label className="form-label">Square Footage / Room Size <span style={{ color: "var(--text-light)", fontWeight: 400 }}>(optional)</span></label>
-              <input className="form-input" value={form.squareFootage} onChange={e => updateField("squareFootage", e.target.value)} placeholder="e.g., 200 sqft, 12x15 room, or 'not sure'" />
-            </div>
-            <div className="form-group">
-              <label className="form-label">Timeline *</label>
-              <select className="form-select" required value={form.timeline} onChange={e => updateField("timeline", e.target.value)}>
-                <option value="">When do you need this done?</option>
-                <option value="asap">ASAP</option>
-                <option value="this-week">This Week</option>
-                <option value="this-month">This Month</option>
-                <option value="flexible">Flexible / No Rush</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Description */}
-          <div className="form-group">
-            <label className="form-label">Describe Your Project *</label>
-            <textarea className="form-textarea" required value={form.description} onChange={e => updateField("description", e.target.value)} placeholder={form.address ? "Tell Chad what's going on with your floors — what needs fixing, what room, any details that help..." : "Tell us about your project! If you didn't enter an address above, let us know the general area or city where the work is needed — this helps us confirm we service your location. For businesses with multiple locations, just let us know how many sites and their general areas."} rows={4} />
-          </div>
-
-          {/* Photo Upload */}
-          <div className="form-group">
-            <label className="form-label">Photos</label>
-            <div style={{ background: "rgba(245,166,35,0.06)", border: "2px dashed rgba(245,166,35,0.3)", borderRadius: 12, padding: 24, textAlign: "center" }}>
-              <p style={{ fontSize: "0.95rem", color: "var(--text-dim)", marginBottom: 12, lineHeight: 1.6 }}>
-                📸 Adding photos speeds up the process! Upload pictures of the area that needs repair or installation and Chad can text you an estimate faster. No photos? No problem — he&apos;ll reach out to discuss.
-              </p>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={handleFileChange}
-                style={{ display: "none" }}
-              />
-              <button
-                type="button"
-                onClick={() => fileInputRef.current?.click()}
-                className="btn btn-outline"
-                style={{ padding: "10px 24px", fontSize: "0.9rem" }}
-              >
-                📷 Choose Photos
-              </button>
-              {files.length > 0 && (
-                <div style={{ marginTop: 16, display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
-                  {files.map((f, i) => (
-                    <div key={i} style={{ background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: 8, padding: "6px 12px", fontSize: "0.8rem", display: "flex", alignItems: "center", gap: 8 }}>
-                      <span>{f.name.length > 20 ? f.name.slice(0, 20) + "..." : f.name}</span>
-                      <button type="button" onClick={() => removeFile(i)} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--maroon)", fontWeight: 700 }}>✕</button>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* How did you hear about us */}
-          <div className="form-group">
-            <label className="form-label">How Did You Hear About Chad? *</label>
-            <select className="form-select" required value={form.referralSource} onChange={e => updateField("referralSource", e.target.value)}>
-              <option value="">Select one...</option>
-              <option value="nextdoor">Nextdoor</option>
-              <option value="facebook">Facebook</option>
-              <option value="google">Google</option>
-              <option value="word-of-mouth">Word of Mouth</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-
-          {/* Submit */}
-          <button
-            type="submit"
-            className="btn btn-primary"
-            disabled={uploading}
-            style={{ width: "100%", justifyContent: "center", fontSize: "1.1rem", padding: "16px 32px", marginTop: 8 }}
-          >
-            {uploading ? "Submitting..." : "🔨 Submit Bid Request"}
-          </button>
-          <p style={{ textAlign: "center", color: "var(--text-light)", fontSize: "0.8rem", marginTop: 12 }}>
-            Chad will text you back within 24 hours. Your information is never shared.
+          <p style={{ maxWidth: 550, margin: "0 auto" }}>
+            <strong>Repairing your floors saves you time &amp; money.</strong> Chad responds to every inquiry personally — usually same day.
           </p>
-        </form>
+        </div>
+
+        {/* Contact Dock — 2 Action Tiles */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20, marginBottom: 32 }}>
+          {/* Tile 1 — Call */}
+          <div style={{ background: "var(--bg-card)", borderRadius: 16, padding: "32px 24px", textAlign: "center", border: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 2px 16px rgba(0,0,0,0.04)" }}>
+            <div style={{ fontSize: "2.2rem", marginBottom: 12 }}>📞</div>
+            <div style={{ fontSize: "1.15rem", fontWeight: 700, marginBottom: 4, color: "#2d2d2d" }}>Call or Text</div>
+            <div style={{ fontSize: "1.4rem", fontWeight: 800, color: "var(--gold)", marginBottom: 4 }}>651-353-6238</div>
+            <div style={{ fontSize: "0.85rem", color: "var(--text-dim)", marginBottom: 20 }}>Mon–Fri, 7am–5pm</div>
+            <a href="tel:6513536238" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, width: "100%", padding: "14px 20px", borderRadius: 10, background: "var(--gold)", color: "#fff", fontWeight: 700, fontSize: "1rem", textDecoration: "none", border: "none" }}>
+              Call 651-353-6238
+            </a>
+          </div>
+
+          {/* Tile 2 — Photo Quote (Featured) */}
+          <div style={{ background: "var(--bg-card)", borderRadius: 16, padding: "32px 24px", textAlign: "center", border: "2px solid var(--gold)", boxShadow: "0 2px 24px rgba(245,166,35,0.12)" }}>
+            <div style={{ fontSize: "2.2rem", marginBottom: 12 }}>📷</div>
+            <div style={{ fontSize: "1.15rem", fontWeight: 700, marginBottom: 4, color: "#2d2d2d" }}>Fastest Quote</div>
+            <div style={{ fontSize: "0.9rem", color: "var(--text-dim)", lineHeight: 1.6, marginBottom: 14 }}>
+              Text a few photos of the flooring area(s) that need repair — <strong>from different angles</strong> — along with your <strong>first and last name</strong>. Chad reviews and responds with a free estimate, usually same day.
+            </div>
+            <div style={{ fontSize: "0.85rem", marginBottom: 16 }}>
+              <span style={{ fontWeight: 700 }}>Text to: </span>
+              <a href="sms:6513536238" style={{ color: "var(--gold-dark)", textDecoration: "none", fontWeight: 600 }}>651-353-6238</a>
+            </div>
+            <div style={{ fontSize: "0.8rem", fontWeight: 700, marginBottom: 8, color: "#2d2d2d" }}>What to photograph:</div>
+            <ul style={{ listStyle: "none", padding: 0, margin: "0 0 20px", textAlign: "left", display: "inline-block" }}>
+              {[
+                "The full flooring area from a standing position",
+                "Close-ups of damage (wrinkles, tears, pet damage, transitions)",
+                "Any doorways, thresholds, or edges involved",
+                "What\u2019s nearby \u2014 furniture, walls, stairs",
+              ].map((item, i) => (
+                <li key={i} style={{ display: "flex", gap: 8, alignItems: "flex-start", fontSize: "0.82rem", color: "var(--text-dim)", padding: "3px 0" }}>
+                  <span style={{ color: "var(--gold)", fontWeight: 700, flexShrink: 0 }}>✓</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <a href="sms:6513536238" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, width: "100%", padding: "14px 20px", borderRadius: 10, background: "var(--gold)", color: "#fff", fontWeight: 700, fontSize: "1rem", textDecoration: "none", border: "none" }}>
+              📷 Text Photos Now
+            </a>
+          </div>
+        </div>
+
+        {/* Service Badges */}
+        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 10, marginBottom: 28 }}>
+          {["Repair Floor Transitions", "Remove Carpet Wrinkles", "Repair Doorways", "Pet Damage + More!"].map((badge) => (
+            <span key={badge} style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 16px", borderRadius: 100, fontSize: "0.78rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px", background: "rgba(245,166,35,0.12)", color: "var(--gold-dark)", border: "1px solid rgba(245,166,35,0.25)" }}>
+              {badge}
+            </span>
+          ))}
+        </div>
+
+        {/* Response time */}
+        <div style={{ textAlign: "center", marginBottom: 24 }}>
+          <p style={{ fontSize: "0.9rem", color: "var(--text-dim)" }}>
+            ⏱ We respond within <strong>24 hours</strong>. No site visit required for initial estimates.
+          </p>
+        </div>
+
+        {/* Thank You Note */}
+        <div style={{ textAlign: "center", maxWidth: 500, margin: "0 auto", padding: "24px", background: "var(--bg-section)", borderRadius: 16, border: "1px solid rgba(245,166,35,0.15)" }}>
+          <p style={{ fontSize: "0.95rem", color: "var(--text-dim)", lineHeight: 1.7, margin: 0, fontStyle: "italic" }}>
+            &ldquo;Thank you for the love + support! We are so blessed by a wonderful community of happy people!&rdquo;
+          </p>
+          <p style={{ fontSize: "0.85rem", color: "var(--gold-dark)", fontWeight: 700, marginTop: 8, marginBottom: 0 }}>
+            — Chad &amp; Katie
+          </p>
+        </div>
+
+        {/* Insured badge */}
+        <div style={{ textAlign: "center", marginTop: 20 }}>
+          <p style={{ fontSize: "0.82rem", color: "var(--text-light)" }}>
+            Chad Bublitz · Anthony Marie LLC · Insured · 20+ Years Experience
+          </p>
+        </div>
       </div>
     </section>
   );
