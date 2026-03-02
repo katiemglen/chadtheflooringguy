@@ -7,24 +7,40 @@ import Image from "next/image";
 import Link from "next/link";
 import { tipPosts } from "./tips/data"; // used by TipsPreview
 
+// Hardcoded fallback data so the page renders immediately for crawlers/AI bots
+const FALLBACK_CONFIG: Record<string, string> = {
+  serviceArea: "Woodbury, MN & Washington County",
+  address: "Woodbury, MN",
+  phone: "651-353-6238",
+};
+
+const FALLBACK_SERVICES = [
+  { _id: "f1", tier: "primary", icon: "🔧", name: "Carpet Repair & Re-Stretching", priceRange: "$150–$500", description: "Wrinkles, bumps, pet damage, seam repairs, burn patches. Power stretching and microwave carpet patching — targeted fixes that extend your carpet's life by years.", features: ["Wrinkle & bump removal", "Pet damage patching", "Seam repair", "Burn & stain patching", "Stair carpet repair"], active: true, order: 1 },
+  { _id: "f2", tier: "primary", icon: "📐", name: "LVP & Vinyl Plank Repair", priceRange: "$200–$800", description: "Single-board replacement, click-lock fixes, water damage repair. No whole-floor teardown needed — save thousands vs full replacement.", features: ["Single-board replacement", "Water damage repair", "Click-lock fixes", "Transition strip repair", "Subfloor leveling"], active: true, order: 2 },
+  { _id: "f3", tier: "primary", icon: "🪵", name: "Hardwood & Engineered Wood Repair", priceRange: "$300–$1,200", description: "Board replacement, scratch repair, water damage fixes. Stained and finished to blend seamlessly with your existing floor.", features: ["Board replacement", "Scratch & dent repair", "Water damage repair", "Engineered wood fixes"], active: true, order: 3 },
+  { _id: "f4", tier: "primary", icon: "🚪", name: "Floor Transition Repair", priceRange: "$100–$400", description: "Fix gaps between rooms, replace broken transition strips, level uneven thresholds. A $200 fix now prevents a $2,000 problem later.", features: ["Transition strip replacement", "Doorway gap repair", "Threshold leveling", "Stair nosing repair"], active: true, order: 4 },
+];
+
+const FALLBACK_TESTIMONIALS = [
+  { _id: "t1", name: "Sarah M.", text: "Chad fixed our carpet wrinkles in 2 hours. Looks brand new. Should have called him years ago!", rating: 5, active: true, order: 1 },
+  { _id: "t2", name: "Mike & Lisa R.", text: "Saved us thousands. We thought we needed to replace the whole floor — Chad replaced 3 boards and you can't even tell.", rating: 5, active: true, order: 2 },
+  { _id: "t3", name: "Jenny K.", text: "Fast, honest, and the price was exactly what he quoted. No surprises. Our realtor recommends him to all her clients.", rating: 5, active: true, order: 3 },
+];
+
 export default function Home() {
-  const config = useQuery(api.queries.getSiteConfig);
-  const services = useQuery(api.queries.getActiveServices);
-  const testimonials = useQuery(api.queries.getTestimonials);
+  const configQuery = useQuery(api.queries.getSiteConfig);
+  const servicesQuery = useQuery(api.queries.getActiveServices);
+  const testimonialsQuery = useQuery(api.queries.getTestimonials);
   const tips = useQuery(api.queries.getTips);
 
-  if (!config) return (
-    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)" }}>
-      <div style={{ textAlign: "center" }}>
-        <div style={{ fontSize: "2rem", marginBottom: 12 }}>🔨</div>
-        <p style={{ color: "var(--text-dim)" }}>Loading...</p>
-      </div>
-    </div>
-  );
+  // Use Convex data when available, fallback to hardcoded for SSR/initial render
+  const config = configQuery || FALLBACK_CONFIG;
+  const services = servicesQuery || FALLBACK_SERVICES;
+  const testimonials = testimonialsQuery || FALLBACK_TESTIMONIALS;
 
-  const primaryServices = (services || []).filter(s => s.tier === "primary");
-  const standardServices = (services || []).filter(s => s.tier === "standard");
-  const additionalServices = (services || []).filter(s => s.tier === "additional");
+  const primaryServices = services.filter((s: any) => s.tier === "primary");
+  const standardServices = services.filter((s: any) => s.tier === "standard");
+  const additionalServices = services.filter((s: any) => s.tier === "additional");
 
   return (
     <>
