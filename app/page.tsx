@@ -37,8 +37,7 @@ export default function Home() {
       <ReviewLinks variant="top" />
       <MeetUs />
       <RepairServices services={primaryServices} />
-      <InstallServices services={standardServices} />
-      <AdditionalServices services={additionalServices} />
+      <NewInstallations />
       <HomeSellerSection />
       <GalleryPreview />
       <Testimonials testimonials={testimonials || []} />
@@ -289,68 +288,48 @@ function RepairServices({ services }: { services: any[] }) {
 }
 
 /* ==================== INSTALL SERVICES (Standard) ==================== */
-function InstallServices({ services }: { services: any[] }) {
+/* ==================== NEW INSTALLATIONS ==================== */
+function NewInstallations() {
+  const tiers = [
+    { icon: "🏷️", name: "Budget Tier", years: "3–5 years", desc: "Ideal for rental properties, quick flips, or situations where you\u2019re not staying long-term. Chad happily installs these lower-tier options when they match your goals." },
+    { icon: "⭐", name: "Mid-Range Tier", years: "7–10 years", desc: "Built to last. This is Chad\u2019s most popular and recommended option for most homeowners who live in the house full-time.", featured: true },
+    { icon: "💎", name: "Premium / 100-Year Tier", years: "20+ years / lifetime", desc: "Luxury materials designed for lifetime performance \u2014 never replace again. This tier often includes pre-finished hardwood." },
+  ];
   return (
     <section className="section-alt" style={{ padding: "80px 0" }}>
-      <div className="container">
+      <div className="container" style={{ maxWidth: 900 }}>
         <div className="section-head">
-          <div className="badge badge-forest" style={{ marginBottom: 12 }}>🥈 Installation</div>
-          <h2>New Flooring Installation</h2>
+          <div className="badge badge-forest" style={{ marginBottom: 12 }}>🏠 Installation</div>
+          <h2>New LVP &amp; Carpet Installations</h2>
           <div className="section-bar" />
-          <p>Full room or whole house. Installed right the first time. I&apos;ll help you find the best materials at the best price.</p>
+          <p style={{ maxWidth: 600, margin: "0 auto" }}>
+            Custom projects &mdash; no fixed price, because every home and lifestyle is unique.
+          </p>
         </div>
-        <ScrollAnimate stagger>
-        <div className="scroll-animate-stagger" style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap" }}>
-          {services.map((s) => (
-            <div key={s._id} className="glass-card scroll-animate" style={{ padding: 28, textAlign: "center", maxWidth: 380, width: "100%" }}>
-              <div style={{ fontSize: "2rem", marginBottom: 12 }}>{s.icon}</div>
-              <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: 8 }}>{s.name}</h3>
-              <p style={{ color: "var(--text-dim)", fontSize: "0.9rem", lineHeight: 1.7, marginBottom: 16 }}>{s.description}</p>
-              {s.features && (
-                <ul style={{ listStyle: "none", padding: 0, margin: 0, textAlign: "center" }}>
-                  {s.features.map((f: string, i: number) => (
-                    <li key={i} style={{ color: "var(--text-dim)", fontSize: "0.8rem", padding: "3px 0" }}>
-                      <span style={{ color: "var(--forest)", marginRight: 8 }}>✓</span>{f}
-                    </li>
-                  ))}
-                  <li style={{ color: "var(--gold-dark)", fontSize: "0.8rem", padding: "3px 0", fontWeight: 700 }}>
-                    <span style={{ color: "var(--forest)", marginRight: 8 }}>✓</span>And more!
-                  </li>
-                </ul>
-              )}
+        <p style={{ color: "var(--text-dim)", lineHeight: 1.8, textAlign: "center", maxWidth: 700, margin: "0 auto 32px", fontSize: "0.95rem" }}>
+          Chad Bublitz personally walks homeowners through the best flooring choice based on how long you plan to live in the home, your current living conditions (pets, kids, high-traffic areas), and how long you want the flooring to last.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 20, marginBottom: 28 }}>
+          {tiers.map((t) => (
+            <div key={t.name} style={{ padding: "28px 24px", borderRadius: 16, background: "var(--bg-card)", border: t.featured ? "2px solid var(--gold)" : "1px solid rgba(0,0,0,0.06)", boxShadow: t.featured ? "0 2px 24px rgba(245,166,35,0.12)" : "0 2px 12px rgba(0,0,0,0.03)", position: "relative" }}>
+              {t.featured && <div style={{ position: "absolute", top: -10, left: "50%", transform: "translateX(-50%)", background: "var(--gold)", color: "#fff", fontSize: "0.7rem", fontWeight: 700, padding: "3px 14px", borderRadius: 100, textTransform: "uppercase", letterSpacing: "0.5px" }}>Most Popular</div>}
+              <div style={{ fontSize: "2rem", marginBottom: 12, textAlign: "center" }}>{t.icon}</div>
+              <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: 4, color: "#2d2d2d", textAlign: "center" }}>{t.name}</h3>
+              <div style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--gold-dark)", textAlign: "center", marginBottom: 12 }}>{t.years}</div>
+              <p style={{ color: "var(--text-dim)", lineHeight: 1.6, margin: 0, fontSize: "0.9rem" }}>{t.desc}</p>
             </div>
           ))}
         </div>
-        </ScrollAnimate>
-      </div>
-    </section>
-  );
-}
-
-/* ==================== ADDITIONAL SERVICES ==================== */
-function AdditionalServices({ services }: { services: any[] }) {
-  if (services.length === 0) return null;
-  return (
-    <section style={{ padding: "60px 0" }}>
-      <div className="container">
-        <div className="section-head">
-          <h2 style={{ fontSize: "1.5rem" }}>Additional Services</h2>
-          <div className="section-bar" />
-          <p style={{ fontSize: "0.95rem" }}>Custom quotes. Reach out to discuss your project.</p>
+        <div style={{ textAlign: "center", padding: "20px 24px", background: "rgba(245,166,35,0.06)", borderRadius: 12, border: "1px solid rgba(245,166,35,0.15)", maxWidth: 700, margin: "0 auto 24px" }}>
+          <p style={{ color: "var(--text-dim)", fontSize: "0.88rem", lineHeight: 1.6, margin: 0 }}>
+            Chad installs <strong>pre-finished hardwood</strong> for the right projects. He does not install traditional solid hardwood flooring, but has trusted professional recommendations if that&apos;s what your project needs.
+          </p>
         </div>
-        <ScrollAnimate stagger>
-        <div className="scroll-animate-stagger" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20, maxWidth: 700, margin: "0 auto", alignItems: "stretch" }}>
-          {services.map((s) => (
-            <div key={s._id} className="glass-card scroll-animate" style={{ padding: 24, textAlign: "center" }}>
-              <div style={{ marginBottom: 8 }}>
-                <span style={{ fontSize: "1.5rem" }}>{s.icon}</span>
-              </div>
-              <h3 style={{ fontSize: "1rem", fontWeight: 800, marginBottom: 8 }}>{s.name}</h3>
-              <p style={{ color: "var(--text-dim)", fontSize: "0.85rem", lineHeight: 1.6 }}>{s.shortDescription}</p>
-            </div>
-          ))}
+        <div style={{ textAlign: "center" }}>
+          <p style={{ color: "var(--text-dim)", lineHeight: 1.7, marginBottom: 16 }}>
+            Text photos of your space to Chad Bublitz at <a href="sms:6513536238" style={{ color: "var(--gold-dark)", fontWeight: 700, textDecoration: "none" }}>651.353.6238</a>. He&apos;ll review your situation and help you choose the smartest, most cost-effective option for your budget and lifestyle.
+          </p>
         </div>
-        </ScrollAnimate>
       </div>
     </section>
   );
@@ -395,16 +374,16 @@ function Testimonials({ testimonials }: { testimonials: any[] }) {
 /* ==================== WHY CHAD SAVES YOU MONEY ==================== */
 function WhyChadSavesMoney() {
   const points = [
-    { icon: "📋", title: "Transparent Itemized Quotes", desc: "You see every line item and choose what to DIY — demo, disposal, material pickup at cost. Save hundreds on every job." },
-    { icon: "🔧", title: "Specialized Tools = Targeted Repairs", desc: "Microwave carpet patches (no full restretch). Single-board LVP removal (no whole-floor teardown). Fix the problem, not the whole floor." },
-    { icon: "💪", title: "20+ Years + Proper Adhesives", desc: "No callbacks, no expensive redos. Done right the first time with industry-grade materials." },
-    { icon: "💰", title: "The Math Speaks for Itself", desc: "Typical full-room replacement: $3,500–$8,500. Chad targeted repair: $799–$2,499 + your DIY savings. Less than $2/day for safe, beautiful floors." },
+    { icon: "📋", title: "Transparent Itemized Quotes", desc: "You see every line item and choose what to DIY — demo, garbage, material pickup at cost. Save hundreds on every job." },
+    { icon: "🔧", title: "Specialized Tools = Targeted Repairs", desc: "Microwave carpet patches (invisible, no full restretch). Single-board LVP removal (no whole-floor teardown risk). Fix the problem, not the whole floor." },
+    { icon: "💪", title: "20+ Years + Proper Adhesives", desc: "One-and-done repairs. No callbacks, no expensive redos. Done right the first time with industry-grade materials." },
+    { icon: "📊", title: "Less Than $2/Day", desc: "Less than $2/day for safe, beautiful floors vs. $800+ repeat fixes later. Typical full-room replacement: $3,500–$8,500. Chad Bublitz targeted repair: $350–$1,000 + your DIY savings." },
   ];
   return (
     <section style={{ padding: "60px 0", background: "var(--bg-section)" }}>
       <div className="container" style={{ maxWidth: 900 }}>
         <div className="section-head">
-          <h2>Why Chad Saves You Money Long-Term</h2>
+          <h2>Why Chad Bublitz Saves You Money Long-Term</h2>
           <div className="section-bar" />
           <p style={{ maxWidth: 550, margin: "0 auto" }}>Repairing your floors saves you time &amp; money. Here&apos;s exactly how.</p>
         </div>
@@ -425,24 +404,18 @@ function WhyChadSavesMoney() {
 /* ==================== HOME SELLER / REALTOR SECTION ==================== */
 function HomeSellerSection() {
   return (
-    <section style={{ padding: "60px 0", background: "linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%)", color: "#fff" }}>
-      <div className="container" style={{ maxWidth: 800, textAlign: "center" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 16px", borderRadius: 100, fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px", background: "rgba(196,136,42,0.2)", color: "var(--gold)", border: "1px solid rgba(196,136,42,0.4)", marginBottom: 20 }}>
-          🏡 For Home Sellers &amp; Realtors
-        </div>
-        <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2.2rem)", fontWeight: 800, marginBottom: 16 }}>
-          Quick Targeted Repairs Before Listing
-        </h2>
-        <p style={{ fontSize: "1.05rem", color: "rgba(255,255,255,0.8)", lineHeight: 1.7, maxWidth: 600, margin: "0 auto 24px" }}>
-          Fix without replacing the whole floor. Carpet re-stretching, LVP board swaps, transition fixes — fast turnaround, photos-ready results. Chad works with realtors across the east metro to get homes show-ready fast.
-        </p>
-        <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-          <a href="sms:6513536238" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 28px", borderRadius: 10, background: "var(--gold)", color: "#fff", fontWeight: 700, textDecoration: "none" }}>
-            📷 Text Photos for Fast Quote
-          </a>
-          <a href="tel:6513536238" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 28px", borderRadius: 10, background: "transparent", color: "var(--gold)", fontWeight: 700, textDecoration: "none", border: "2px solid var(--gold)" }}>
-            📞 Call 651-353-6238
-          </a>
+    <section style={{ padding: "40px 0" }}>
+      <div className="container" style={{ maxWidth: 700 }}>
+        <div style={{ padding: "28px 32px", borderRadius: 16, background: "rgba(245,166,35,0.06)", border: "1px solid rgba(245,166,35,0.2)", textAlign: "center" }}>
+          <div style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px", color: "var(--gold-dark)", marginBottom: 12 }}>🏡 For Home Sellers &amp; Realtors in Woodbury &amp; Washington County</div>
+          <p style={{ fontSize: "1rem", color: "var(--text-dim)", lineHeight: 1.7, margin: 0 }}>
+            Quick targeted repairs before listing — fix wrinkles, pet damage, or transitions without replacing the whole floor. Fast turnaround, photo-ready results that help homes sell faster.
+          </p>
+          <div style={{ marginTop: 16 }}>
+            <a href="sms:6513536238" style={{ color: "var(--gold-dark)", fontWeight: 700, textDecoration: "none", fontSize: "0.95rem" }}>
+              📷 Text photos to 651-353-6238 →
+            </a>
+          </div>
         </div>
       </div>
     </section>
