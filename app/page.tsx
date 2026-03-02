@@ -21,11 +21,8 @@ const FALLBACK_SERVICES = [
   { _id: "f4", tier: "primary", icon: "🚪", name: "Floor Transition Repair", priceRange: "$100–$400", description: "Fix gaps between rooms, replace broken transition strips, level uneven thresholds. A $200 fix now prevents a $2,000 problem later.", features: ["Transition strip replacement", "Doorway gap repair", "Threshold leveling", "Stair nosing repair"], active: true, order: 4 },
 ];
 
-const FALLBACK_TESTIMONIALS = [
-  { _id: "t1", name: "Sarah M.", text: "Chad fixed our carpet wrinkles in 2 hours. Looks brand new. Should have called him years ago!", rating: 5, active: true, order: 1 },
-  { _id: "t2", name: "Mike & Lisa R.", text: "Saved us thousands. We thought we needed to replace the whole floor — Chad replaced 3 boards and you can't even tell.", rating: 5, active: true, order: 2 },
-  { _id: "t3", name: "Jenny K.", text: "Fast, honest, and the price was exactly what he quoted. No surprises. Our realtor recommends him to all her clients.", rating: 5, active: true, order: 3 },
-];
+// Testimonials load from Convex (social media reviews). Empty fallback hides section until real data loads.
+const FALLBACK_TESTIMONIALS: any[] = [];
 
 export default function Home() {
   const configQuery = useQuery(api.queries.getSiteConfig);
@@ -716,21 +713,31 @@ function useScrollAnimation() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    // Immediately show elements already in viewport
+    const showIfVisible = (target: Element) => {
+      const rect = target.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        target.classList.add("animate-in");
+        target.querySelectorAll(".scroll-animate").forEach((child) => child.classList.add("animate-in"));
+      }
+    };
+
+    if (el.classList.contains("scroll-animate")) showIfVisible(el);
+    el.querySelectorAll(".scroll-animate").forEach((child) => showIfVisible(child));
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("animate-in");
-            // Also animate children with scroll-animate class
             entry.target.querySelectorAll(".scroll-animate").forEach((child) => child.classList.add("animate-in"));
           }
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.05, rootMargin: "0px 0px -20px 0px" }
     );
-    // Observe the element itself
     if (el.classList.contains("scroll-animate")) observer.observe(el);
-    // Observe children
     el.querySelectorAll(".scroll-animate").forEach((child) => observer.observe(child));
     return () => observer.disconnect();
   }, []);
