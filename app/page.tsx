@@ -33,11 +33,13 @@ export default function Home() {
       <Navbar config={config} />
       <Hero config={config} />
       <NeighborhoodFavorite />
+      <WhyChadSavesMoney />
       <ReviewLinks variant="top" />
       <MeetUs />
       <RepairServices services={primaryServices} />
       <InstallServices services={standardServices} />
       <AdditionalServices services={additionalServices} />
+      <HomeSellerSection />
       <GalleryPreview />
       <Testimonials testimonials={testimonials || []} />
       <ReviewLinks variant="middle" />
@@ -118,12 +120,12 @@ function Hero({ config }: { config: Record<string, string> }) {
             ⭐ Nextdoor Neighborhood Favorite — Multiple Years Running
           </div>
           <h1 className="fade-up" style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)", fontWeight: 900, lineHeight: 1.15, marginBottom: 20, color: "#ffffff" }}>
-            Repairing Your Floors<br />
-            <span style={{ color: "var(--gold)" }}>Saves You Time & Money</span>
+            Expert Flooring Repairs<br />
+            <span style={{ color: "var(--gold)" }}>Done Right the First Time</span>
           </h1>
           <p style={{ fontSize: "1.15rem", color: "rgba(255,255,255,0.85)", maxWidth: 650, margin: "0 auto 16px", lineHeight: 1.7 }}>
-            Expert flooring repair and installation in {config.serviceArea || "Woodbury, MN"}.
-            20+ years of experience. Text photos for a fast estimate!
+            Expert flooring repair and installation in {config.serviceArea || "Woodbury, MN & Washington County"}.
+            20+ years insured. Transparent itemized quotes &amp; DIY savings. Text photos for a free estimate!
           </p>
           <p style={{ fontSize: "0.95rem", color: "rgba(255,255,255,0.85)", maxWidth: 500, margin: "0 auto 32px", lineHeight: 1.7 }}>
             Most people don&apos;t know who to call for flooring repairs. Now you do.
@@ -390,12 +392,70 @@ function Testimonials({ testimonials }: { testimonials: any[] }) {
 /* (Old Convex tips section replaced by TipsPreview above) */
 
 /* ==================== BID FORM ==================== */
+/* ==================== WHY CHAD SAVES YOU MONEY ==================== */
+function WhyChadSavesMoney() {
+  const points = [
+    { icon: "📋", title: "Transparent Itemized Quotes", desc: "You see every line item and choose what to DIY — demo, disposal, material pickup at cost. Save hundreds on every job." },
+    { icon: "🔧", title: "Specialized Tools = Targeted Repairs", desc: "Microwave carpet patches (no full restretch). Single-board LVP removal (no whole-floor teardown). Fix the problem, not the whole floor." },
+    { icon: "💪", title: "20+ Years + Proper Adhesives", desc: "No callbacks, no expensive redos. Done right the first time with industry-grade materials." },
+    { icon: "💰", title: "The Math Speaks for Itself", desc: "Typical full-room replacement: $3,500–$8,500. Chad targeted repair: $799–$2,499 + your DIY savings. Less than $2/day for safe, beautiful floors." },
+  ];
+  return (
+    <section style={{ padding: "60px 0", background: "var(--bg-section)" }}>
+      <div className="container" style={{ maxWidth: 900 }}>
+        <div className="section-head">
+          <h2>Why Chad Saves You Money Long-Term</h2>
+          <div className="section-bar" />
+          <p style={{ maxWidth: 550, margin: "0 auto" }}>Repairing your floors saves you time &amp; money. Here&apos;s exactly how.</p>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 20 }}>
+          {points.map((p, i) => (
+            <div key={i} style={{ padding: "28px 24px", borderRadius: 16, background: "var(--bg-card)", border: "1px solid rgba(0,0,0,0.06)", boxShadow: "0 2px 12px rgba(0,0,0,0.03)" }}>
+              <div style={{ fontSize: "2rem", marginBottom: 12 }}>{p.icon}</div>
+              <h3 style={{ fontSize: "1.05rem", fontWeight: 700, marginBottom: 8, color: "#2d2d2d" }}>{p.title}</h3>
+              <p style={{ color: "var(--text-dim)", lineHeight: 1.6, margin: 0, fontSize: "0.92rem" }}>{p.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ==================== HOME SELLER / REALTOR SECTION ==================== */
+function HomeSellerSection() {
+  return (
+    <section style={{ padding: "60px 0", background: "linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%)", color: "#fff" }}>
+      <div className="container" style={{ maxWidth: 800, textAlign: "center" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 16px", borderRadius: 100, fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px", background: "rgba(196,136,42,0.2)", color: "var(--gold)", border: "1px solid rgba(196,136,42,0.4)", marginBottom: 20 }}>
+          🏡 For Home Sellers &amp; Realtors
+        </div>
+        <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2.2rem)", fontWeight: 800, marginBottom: 16 }}>
+          Quick Targeted Repairs Before Listing
+        </h2>
+        <p style={{ fontSize: "1.05rem", color: "rgba(255,255,255,0.8)", lineHeight: 1.7, maxWidth: 600, margin: "0 auto 24px" }}>
+          Fix without replacing the whole floor. Carpet re-stretching, LVP board swaps, transition fixes — fast turnaround, photos-ready results. Chad works with realtors across the east metro to get homes show-ready fast.
+        </p>
+        <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+          <a href="sms:6513536238" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 28px", borderRadius: 10, background: "var(--gold)", color: "#fff", fontWeight: 700, textDecoration: "none" }}>
+            📷 Text Photos for Fast Quote
+          </a>
+          <a href="tel:6513536238" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 28px", borderRadius: 10, background: "transparent", color: "var(--gold)", fontWeight: 700, textDecoration: "none", border: "2px solid var(--gold)" }}>
+            📞 Call 651-353-6238
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ==================== CONTACT / BID ==================== */
 function BidForm() {
   return (
     <section id="bid" className="section-alt" style={{ padding: "80px 0" }}>
       <div className="container" style={{ maxWidth: 900 }}>
         <div className="section-head">
-          <h2>Ready to Repair Your Floors?</h2>
+          <h2>Let&apos;s Find Solutions!</h2>
           <div className="section-bar" />
           <p style={{ maxWidth: 550, margin: "0 auto" }}>
             <strong>Repairing your floors saves you time &amp; money.</strong> Chad responds to every inquiry personally — usually same day.
