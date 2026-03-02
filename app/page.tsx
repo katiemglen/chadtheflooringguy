@@ -714,31 +714,32 @@ function useScrollAnimation() {
     const el = ref.current;
     if (!el) return;
 
-    // Immediately show elements already in viewport
-    const showIfVisible = (target: Element) => {
-      const rect = target.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        target.classList.add("animate-in");
-        target.querySelectorAll(".scroll-animate").forEach((child) => child.classList.add("animate-in"));
-      }
-    };
+    // Collect all animatable elements
+    const targets: Element[] = [];
+    if (el.classList.contains("scroll-animate")) targets.push(el);
+    el.querySelectorAll(".scroll-animate").forEach((child) => targets.push(child));
 
-    if (el.classList.contains("scroll-animate")) showIfVisible(el);
-    el.querySelectorAll(".scroll-animate").forEach((child) => showIfVisible(child));
+    // Hide elements that are NOT yet in viewport (below the fold)
+    targets.forEach((target) => {
+      const rect = target.getBoundingClientRect();
+      if (rect.top >= window.innerHeight) {
+        target.classList.add("scroll-hidden");
+      }
+      // Elements already in viewport stay visible (opacity: 1 default)
+    });
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            entry.target.classList.remove("scroll-hidden");
             entry.target.classList.add("animate-in");
-            entry.target.querySelectorAll(".scroll-animate").forEach((child) => child.classList.add("animate-in"));
           }
         });
       },
       { threshold: 0.05, rootMargin: "0px 0px -20px 0px" }
     );
-    if (el.classList.contains("scroll-animate")) observer.observe(el);
-    el.querySelectorAll(".scroll-animate").forEach((child) => observer.observe(child));
+    targets.forEach((target) => observer.observe(target));
     return () => observer.disconnect();
   }, []);
   return ref;
