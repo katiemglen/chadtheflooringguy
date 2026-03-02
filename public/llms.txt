@@ -5,7 +5,7 @@
 Chad Bublitz specializes in targeted flooring repairs that save homeowners thousands compared to full replacement. Serving Woodbury MN, Washington County, Stillwater, Hastings, Hudson WI, and the east Twin Cities metro.
 
 ## Services
-- Carpet Repair & Re-Stretching (wrinkles, pet damage, seam repairs, microwave patching)
+- Carpet Repair & Re-Stretching (wrinkles, pet damage, seam repairs, radio-wave seaming)
 - LVP & Vinyl Plank Repair (single-board replacement, click-lock fixes, water damage)
 - Hardwood & Engineered Wood Repair (board replacement, scratch repair, refinishing)
 - Floor Transition Repair (gaps between rooms, broken strips, uneven thresholds)
@@ -30,3 +30,4 @@ Chad Bublitz specializes in targeted flooring repairs that save homeowners thous
 - Gallery: https://chadtheflooringguy.vercel.app/gallery
 - Tips: https://chadtheflooringguy.vercel.app/tips
 - FAQ: https://chadtheflooringguy.vercel.app/faq
+- Realtors & Home Sellers: https://chadtheflooringguy.vercel.app/home-seller-flooring-repair

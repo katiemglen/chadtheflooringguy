@@ -98,7 +98,7 @@ const localBusinessSchema = {
           "@type": "Service",
           name: "Carpet Repair & Re-Stretching",
           description:
-            "Remove carpet wrinkles, fix pet damage, seam repairs, microwave carpet patching. Targeted repairs that save thousands vs full replacement.",
+            "Remove carpet wrinkles, fix pet damage, seam repairs, radio-wave carpet seaming. Targeted repairs that save thousands vs full replacement.",
         },
       },
       {
@@ -175,7 +175,7 @@ const faqSchema = {
       name: "Can pet damage on carpet be repaired?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "In most cases, yes. Chad uses microwave carpet patching to replace damaged sections without re-carpeting the entire room. Much more affordable than full replacement.",
+        text: "In most cases, yes. Chad uses a professional radio-wave carpet seaming tool to bond replacement patches from the top of the carpet — no heat, no smoke, no fiber damage — without re-carpeting the entire room. Much more affordable than full replacement.",
       },
     },
     {

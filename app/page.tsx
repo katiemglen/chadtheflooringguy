@@ -15,7 +15,7 @@ const FALLBACK_CONFIG: Record<string, string> = {
 };
 
 const FALLBACK_SERVICES = [
-  { _id: "f1", tier: "primary", icon: "🔧", name: "Carpet Repair & Re-Stretching", priceRange: "$150–$500", description: "Wrinkles, bumps, pet damage, seam repairs, burn patches. Power stretching and microwave carpet patching — targeted fixes that extend your carpet's life by years.", features: ["Wrinkle & bump removal", "Pet damage patching", "Seam repair", "Burn & stain patching", "Stair carpet repair"], active: true, order: 1 },
+  { _id: "f1", tier: "primary", icon: "🔧", name: "Carpet Repair & Re-Stretching", priceRange: "$150–$500", description: "Wrinkles, bumps, pet damage, seam repairs, burn patches. Power stretching and professional radio-wave seaming — targeted fixes that extend your carpet's life by years.", features: ["Wrinkle & bump removal", "Pet damage patching", "Seam repair", "Burn & stain patching", "Stair carpet repair"], active: true, order: 1 },
   { _id: "f2", tier: "primary", icon: "📐", name: "LVP & Vinyl Plank Repair", priceRange: "$200–$800", description: "Single-board replacement, click-lock fixes, water damage repair. No whole-floor teardown needed — save thousands vs full replacement.", features: ["Single-board replacement", "Water damage repair", "Click-lock fixes", "Transition strip repair", "Subfloor leveling"], active: true, order: 2 },
   { _id: "f3", tier: "primary", icon: "🪵", name: "Hardwood & Engineered Wood Repair", priceRange: "$300–$1,200", description: "Board replacement, scratch repair, water damage fixes. Stained and finished to blend seamlessly with your existing floor.", features: ["Board replacement", "Scratch & dent repair", "Water damage repair", "Engineered wood fixes"], active: true, order: 3 },
   { _id: "f4", tier: "primary", icon: "🚪", name: "Floor Transition Repair", priceRange: "$100–$400", description: "Fix gaps between rooms, replace broken transition strips, level uneven thresholds. A $200 fix now prevents a $2,000 problem later.", features: ["Transition strip replacement", "Doorway gap repair", "Threshold leveling", "Stair nosing repair"], active: true, order: 4 },
@@ -391,7 +391,7 @@ function Testimonials({ testimonials }: { testimonials: any[] }) {
 function WhyChadSavesMoney() {
   const points = [
     { icon: "📋", title: "Transparent Itemized Quotes", desc: "You see every line item and choose what to DIY — demo, garbage, material pickup at cost. Save hundreds on every job." },
-    { icon: "🔧", title: "Specialized Tools = Targeted Repairs", desc: "Microwave carpet patches (invisible, no full restretch). Single-board LVP removal (no whole-floor teardown risk). Fix the problem, not the whole floor." },
+    { icon: "🔧", title: "Specialized Tools = Targeted Repairs", desc: "Professional radio-wave carpet seaming — invisible patches bonded from the top with no heat, no smoke, no fiber damage. No full restretch needed. Single-board LVP removal (no whole-floor teardown risk)." },
     { icon: "💪", title: "20+ Years + Proper Adhesives", desc: "One-and-done repairs. No callbacks, no expensive redos. Done right the first time with industry-grade materials." },
     { icon: "📊", title: "Less Than $2/Day", desc: "Less than $2/day for safe, beautiful floors vs. $800+ repeat fixes later. Typical full-room replacement: $3,500–$8,500. Chad Bublitz targeted repair: $350–$1,000 + your DIY savings." },
   ];
@@ -427,9 +427,12 @@ function HomeSellerSection() {
           <p style={{ fontSize: "1rem", color: "var(--text-dim)", lineHeight: 1.7, margin: 0 }}>
             Quick targeted repairs before listing — fix wrinkles, pet damage, or transitions without replacing the whole floor. Fast turnaround, photo-ready results that help homes sell faster.
           </p>
-          <div style={{ marginTop: 16 }}>
+          <div style={{ marginTop: 16, display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
             <a href="sms:6513536238" style={{ color: "var(--gold-dark)", fontWeight: 700, textDecoration: "none", fontSize: "0.95rem" }}>
-              📷 Text photos to 651-353-6238 →
+              📷 Text photos to 651-353-6238
+            </a>
+            <a href="/home-seller-flooring-repair" style={{ color: "var(--gold-dark)", fontWeight: 700, textDecoration: "none", fontSize: "0.95rem" }}>
+              Learn more →
             </a>
           </div>
         </div>

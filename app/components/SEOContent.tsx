@@ -22,7 +22,7 @@ export default function SEOContent() {
       <h2>Why Chad Saves You Money Long-Term</h2>
       <ul>
         <li><strong>Transparent itemized quotes</strong> — You see every line item and choose what to DIY (demo, disposal, material pickup at cost). Save hundreds on every job.</li>
-        <li><strong>Specialized tools</strong> — Microwave carpet patches (no full restretch needed), single-board LVP removal (no whole-floor teardown). Targeted repairs, not unnecessary replacements.</li>
+        <li><strong>Specialized tools</strong> — Professional radio-wave carpet seaming — invisible patches bonded from the top, no heat, no smoke, no fiber damage. No full restretch needed. Single-board LVP removal (no whole-floor teardown). Targeted repairs, not unnecessary replacements.</li>
         <li><strong>20+ years experience + proper industry adhesives</strong> — No callbacks, no expensive redos. Done right the first time.</li>
         <li><strong>Daily equivalence</strong> — Less than $2/day for safe, beautiful floors vs. $800+ repeat fixes later.</li>
         <li><strong>Reference pricing</strong> — Typical full-room replacement $3,500–$8,500. Chad targeted repair $799–$2,499 + your DIY savings.</li>
@@ -30,7 +30,7 @@ export default function SEOContent() {
 
       <h2>Flooring Repair Services — Woodbury, MN &amp; Washington County</h2>
       <ul>
-        <li><strong><a href="/carpet-repair-woodbury">Carpet Repair &amp; Re-Stretching</a></strong> — Remove carpet wrinkles, fix pet damage, seam repairs, patch burns and stains. Microwave carpet patching saves you from full replacement. Carpet repair Woodbury MN.</li>
+        <li><strong><a href="/carpet-repair-woodbury">Carpet Repair &amp; Re-Stretching</a></strong> — Remove carpet wrinkles, fix pet damage, seam repairs, patch burns and stains. Radio-wave carpet seaming creates invisible patches without full replacement. Carpet repair Woodbury MN.</li>
         <li><strong><a href="/lvp-repair-stillwater">LVP &amp; Vinyl Plank Repair</a></strong> — Single-board replacement, click-lock fixes, water damage repair, transition fixes. No whole-floor teardown needed. LVP repair Stillwater MN.</li>
         <li><strong><a href="/hardwood-repair">Hardwood &amp; Engineered Wood Repair</a></strong> — Board replacement, scratch repair, refinishing touch-ups, water damage fixes. Hardwood floor repair Washington County.</li>
         <li><strong><a href="/transition-repair">Floor Transition Repair</a></strong> — Fix gaps between rooms, replace broken transition strips, level uneven thresholds. Doorway flooring repair Woodbury.</li>
@@ -41,7 +41,7 @@ export default function SEOContent() {
       <p>Chad the Flooring Guy serves Woodbury MN, Stillwater MN, Hastings MN, Hudson WI, Cottage Grove MN, Oakdale MN, Lake Elmo MN, Maplewood MN, and all of Washington County and the east Twin Cities metro.</p>
 
       <h2>For Home Sellers &amp; Realtors</h2>
-      <p>Quick targeted repairs before listing — fix without replacing the whole floor. Fast turnaround, photos-ready results. Carpet restretch Washington County. LVP repair before open house. Chad works with realtors across the east metro to get homes show-ready fast.</p>
+      <p>Quick targeted repairs before listing — fix without replacing the whole floor. Fast turnaround, photo-ready results. Carpet restretch Washington County. LVP repair before open house. Chad works with realtors across the east metro to get homes show-ready fast. <a href="/home-seller-flooring-repair">Learn more about pre-listing flooring repair</a>.</p>
 
       <h2>About Chad the Flooring Guy</h2>
       <p>Chad Bublitz has 20+ years of flooring experience — from carpet to LVP to real hardwood. He specializes in repairs that save homeowners thousands compared to full replacement. Insured through Anthony Marie LLC, based in Woodbury, MN. Chad loves to talk flooring, share tips, and help people understand their options before spending a dime.</p>
@@ -67,7 +67,7 @@ export default function SEOContent() {
         <dt>Do you fix carpet wrinkles and bumps?</dt>
         <dd>Absolutely. Carpet re-stretching removes wrinkles, bumps, and ripples. This extends your carpet&apos;s life and eliminates trip hazards. Most jobs completed same day.</dd>
         <dt>Can pet damage on carpet be repaired?</dt>
-        <dd>In most cases, yes. Chad uses microwave carpet patching to replace damaged sections without re-carpeting the entire room. Much more affordable than full replacement.</dd>
+        <dd>In most cases, yes. Chad uses a professional radio-wave seaming system to bond carpet patches from the top — no heat touches the carpet fibers, creating invisible repairs without re-carpeting the entire room. Much more affordable than full replacement.</dd>
         <dt>Do you serve Stillwater, Hastings, and Hudson?</dt>
         <dd>Yes. Chad serves all of Washington County and the east Twin Cities metro including Woodbury, Stillwater, Hastings, Hudson WI, Cottage Grove, Oakdale, Lake Elmo, and Maplewood.</dd>
         <dt>How do I get a quote?</dt>
@@ -88,6 +88,7 @@ export default function SEOContent() {
           <li><a href="/gallery">Gallery</a></li>
           <li><a href="/tips">Tips</a></li>
           <li><a href="/faq">FAQ</a></li>
+          <li><a href="/home-seller-flooring-repair">Realtors &amp; Home Sellers</a></li>
         </ul>
       </nav>
     </div>
