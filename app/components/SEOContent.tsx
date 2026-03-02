@@ -25,7 +25,7 @@ export default function SEOContent() {
         <li><strong>Specialized tools</strong> — Professional radio-wave carpet seaming — invisible patches bonded from the top, no heat, no smoke, no fiber damage. No full restretch needed. Single-board LVP removal (no whole-floor teardown). Targeted repairs, not unnecessary replacements.</li>
         <li><strong>20+ years experience + proper industry adhesives</strong> — No callbacks, no expensive redos. Done right the first time.</li>
         <li><strong>Daily equivalence</strong> — Less than $2/day for safe, beautiful floors vs. $800+ repeat fixes later.</li>
-        <li><strong>Reference pricing</strong> — Typical full-room replacement $3,500–$8,500. Chad targeted repair $799–$2,499 + your DIY savings.</li>
+        <li><strong>Reference pricing</strong> — Typical full-room replacement $3,500–$8,500. Chad targeted repair $149–$1199 + your DIY savings.</li>
       </ul>
 
       <h2>Flooring Repair Services — Woodbury, MN &amp; Washington County</h2>
@@ -61,7 +61,7 @@ export default function SEOContent() {
       <h2>Frequently Asked Questions</h2>
       <dl>
         <dt>How much does carpet repair cost in Woodbury MN?</dt>
-        <dd>Most carpet repairs range from $150–$500 depending on the issue. Chad provides transparent itemized quotes so you see every line item and can choose what to DIY to save money. Text photos to 651-353-6238 for a free estimate.</dd>
+        <dd>Most carpet repairs range from $149–$499 depending on the issue. Chad provides transparent itemized quotes so you see every line item and can choose what to DIY to save money. Text photos to 651-353-6238 for a free estimate.</dd>
         <dt>Can you fix just one plank of LVP without replacing the whole floor?</dt>
         <dd>Yes! Chad specializes in single-board LVP replacement. No whole-floor teardown needed. This targeted approach saves thousands compared to full replacement.</dd>
         <dt>Do you fix carpet wrinkles and bumps?</dt>

@@ -26,7 +26,7 @@ const serviceSchema = JSON.stringify({
 const faqSchema = JSON.stringify({
   "@context": "https://schema.org", "@type": "FAQPage",
   mainEntity: [
-    { "@type": "Question", name: "How much does carpet repair cost in Woodbury MN?", acceptedAnswer: { "@type": "Answer", text: "Most carpet repairs range from $150–$500 depending on the issue. Carpet restretching is typically $150–$350 per room, pet damage patches $150–$500, and seam repairs $100–$300. Chad provides transparent itemized quotes so you see every line item. Text photos to 651-353-6238 for a free estimate." } },
+    { "@type": "Question", name: "How much does carpet repair cost in Woodbury MN?", acceptedAnswer: { "@type": "Answer", text: "Most carpet repairs range from $149–$499 depending on the issue. Carpet restretching is typically $149–$349 per room, pet damage patches $149–$499, and seam repairs $99–$299. Chad provides transparent itemized quotes so you see every line item. Text photos to 651-353-6238 for a free estimate." } },
     { "@type": "Question", name: "Can carpet wrinkles be fixed without replacing the carpet?", acceptedAnswer: { "@type": "Answer", text: "Yes. Power stretching removes wrinkles, bumps, and ripples by re-tensioning the carpet over the tack strips. This extends your carpet's life by years and eliminates trip hazards. Most rooms completed same day." } },
     { "@type": "Question", name: "How does radio-wave carpet patching work?", acceptedAnswer: { "@type": "Answer", text: "Chad uses a professional radio-wave seaming tool that bonds carpet patches from the top of the surface — no heat touches the fibers, creating invisible repairs with no smoke or odor. The radio-wave energy activates specially engineered seam tape underneath, bonding the new patch seamlessly to the existing carpet." } },
   ],
@@ -83,7 +83,7 @@ export default function CarpetRepairWoodburyPage() {
           <div style={{ maxWidth: 800, margin: "0 auto", textAlign: "center" }}>
             <h2 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: 16, color: "#2d2d2d" }}>Why Repair Saves You Thousands</h2>
             <p style={{ fontSize: "1.05rem", color: "var(--text-dim)", lineHeight: 1.7, maxWidth: 600, margin: "0 auto" }}>
-              A typical full-room carpet replacement runs $3,500–$6,000. Chad&apos;s targeted carpet repairs usually run $150–$500 — saving you 70-90% while extending your carpet&apos;s life by 5-10 years. Chad provides transparent itemized quotes so you see every line item and can choose what to DIY to save even more.
+              A typical full-room carpet replacement runs $3,500–$6,000. Chad&apos;s targeted carpet repairs usually run $149–$499 — saving you 70-90% while extending your carpet&apos;s life by 5-10 years. Chad provides transparent itemized quotes so you see every line item and can choose what to DIY to save even more.
             </p>
           </div>
         </section>
@@ -92,7 +92,7 @@ export default function CarpetRepairWoodburyPage() {
           <h2 style={{ fontSize: "1.8rem", fontWeight: 800, marginBottom: 32, color: "#2d2d2d" }}>Frequently Asked Questions</h2>
           <details style={{ marginBottom: 16, padding: "20px 24px", borderRadius: 12, background: "var(--bg-card)", border: "1px solid rgba(0,0,0,0.06)" }}>
             <summary style={{ fontWeight: 700, fontSize: "1.05rem", cursor: "pointer", color: "#2d2d2d" }}>How much does carpet repair cost in Woodbury MN?</summary>
-            <p style={{ color: "var(--text-dim)", lineHeight: 1.7, marginTop: 12 }}>Most carpet repairs range from $150–$500. Carpet restretching is typically $150–$350 per room, pet damage patches $150–$500, and seam repairs $100–$300. Chad provides transparent itemized quotes. Text photos to 651-353-6238 for a free estimate.</p>
+            <p style={{ color: "var(--text-dim)", lineHeight: 1.7, marginTop: 12 }}>Most carpet repairs range from $149–$499. Carpet restretching is typically $149–$349 per room, pet damage patches $149–$499, and seam repairs $99–$299. Chad provides transparent itemized quotes. Text photos to 651-353-6238 for a free estimate.</p>
           </details>
           <details style={{ marginBottom: 16, padding: "20px 24px", borderRadius: 12, background: "var(--bg-card)", border: "1px solid rgba(0,0,0,0.06)" }}>
             <summary style={{ fontWeight: 700, fontSize: "1.05rem", cursor: "pointer", color: "#2d2d2d" }}>Can carpet wrinkles be fixed without replacing the carpet?</summary>

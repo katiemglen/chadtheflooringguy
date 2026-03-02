@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Floor Transition Repair Woodbury MN | Doorway & Threshold Fixes",
-  description: "Fix broken transition strips, doorway gaps, uneven thresholds. $100–$400 repairs that prevent bigger problems. Text photos: 651.353.6238.",
+  description: "Fix broken transition strips, doorway gaps, uneven thresholds. $99–$399 repairs that prevent bigger problems. Text photos: 651.353.6238.",
   alternates: { canonical: "https://chadtheflooringguy.vercel.app/transition-repair" },
 };
 
@@ -18,7 +18,7 @@ const serviceSchema = JSON.stringify({ "@context": "https://schema.org", "@type"
 });
 
 const faqSchema = JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: [
-  { "@type": "Question", name: "How much does it cost to fix a floor transition?", acceptedAnswer: { "@type": "Answer", text: "Most doorway transition repairs run $100–$400 depending on the flooring types involved and whether subfloor work is needed. Text photos to 651-353-6238 for a free estimate." } },
+  { "@type": "Question", name: "How much does it cost to fix a floor transition?", acceptedAnswer: { "@type": "Answer", text: "Most doorway transition repairs run $99–$399 depending on the flooring types involved and whether subfloor work is needed. Text photos to 651-353-6238 for a free estimate." } },
   { "@type": "Question", name: "Can you fix the gap between my kitchen and living room floor?", acceptedAnswer: { "@type": "Answer", text: "Yes. Transition strip replacement and threshold leveling close gaps between rooms where different flooring types meet. Chad uses the correct transition profile for your specific flooring combination and secures it properly." } },
   { "@type": "Question", name: "Is a broken transition strip a big deal?", acceptedAnswer: { "@type": "Answer", text: "It can be. Gaps let moisture and debris underneath, which can cause larger flooring problems over time — including subfloor damage and mold. It's also a trip hazard, especially for kids and elderly family members. A $200 fix now prevents a $2,000 problem later." } },
 ]});
@@ -56,12 +56,12 @@ export default function TransitionRepairPage() {
         <section style={{ padding: "48px 20px", background: "var(--bg-section)" }}>
           <div style={{ maxWidth: 800, margin: "0 auto", textAlign: "center" }}>
             <h2 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: 16, color: "#2d2d2d" }}>Why a $200 Fix Now Prevents a $2,000 Problem Later</h2>
-            <p style={{ fontSize: "1.05rem", color: "var(--text-dim)", lineHeight: 1.7, maxWidth: 600, margin: "0 auto" }}>Ignoring broken transitions leads to moisture and debris getting underneath your flooring, causing subfloor damage, mold, and further floor deterioration. Most transition repairs run $100–$400 per doorway — a small price to prevent a much bigger repair bill down the road.</p>
+            <p style={{ fontSize: "1.05rem", color: "var(--text-dim)", lineHeight: 1.7, maxWidth: 600, margin: "0 auto" }}>Ignoring broken transitions leads to moisture and debris getting underneath your flooring, causing subfloor damage, mold, and further floor deterioration. Most transition repairs run $99–$399 per doorway — a small price to prevent a much bigger repair bill down the road.</p>
           </div>
         </section>
         <section style={{ padding: "60px 20px", maxWidth: 800, margin: "0 auto" }}>
           <h2 style={{ fontSize: "1.8rem", fontWeight: 800, marginBottom: 32, color: "#2d2d2d" }}>Frequently Asked Questions</h2>
-          <details style={{ marginBottom: 16, padding: "20px 24px", borderRadius: 12, background: "var(--bg-card)", border: "1px solid rgba(0,0,0,0.06)" }}><summary style={{ fontWeight: 700, fontSize: "1.05rem", cursor: "pointer", color: "#2d2d2d" }}>How much does it cost to fix a floor transition?</summary><p style={{ color: "var(--text-dim)", lineHeight: 1.7, marginTop: 12 }}>Most doorway transition repairs run $100–$400 depending on the flooring types involved and whether subfloor work is needed. Text photos to 651-353-6238 for a free estimate.</p></details>
+          <details style={{ marginBottom: 16, padding: "20px 24px", borderRadius: 12, background: "var(--bg-card)", border: "1px solid rgba(0,0,0,0.06)" }}><summary style={{ fontWeight: 700, fontSize: "1.05rem", cursor: "pointer", color: "#2d2d2d" }}>How much does it cost to fix a floor transition?</summary><p style={{ color: "var(--text-dim)", lineHeight: 1.7, marginTop: 12 }}>Most doorway transition repairs run $99–$399 depending on the flooring types involved and whether subfloor work is needed. Text photos to 651-353-6238 for a free estimate.</p></details>
           <details style={{ marginBottom: 16, padding: "20px 24px", borderRadius: 12, background: "var(--bg-card)", border: "1px solid rgba(0,0,0,0.06)" }}><summary style={{ fontWeight: 700, fontSize: "1.05rem", cursor: "pointer", color: "#2d2d2d" }}>Can you fix the gap between my kitchen and living room floor?</summary><p style={{ color: "var(--text-dim)", lineHeight: 1.7, marginTop: 12 }}>Yes. Transition strip replacement and threshold leveling close gaps between rooms where different flooring types meet. Chad uses the correct transition profile for your specific flooring combination.</p></details>
           <details style={{ marginBottom: 16, padding: "20px 24px", borderRadius: 12, background: "var(--bg-card)", border: "1px solid rgba(0,0,0,0.06)" }}><summary style={{ fontWeight: 700, fontSize: "1.05rem", cursor: "pointer", color: "#2d2d2d" }}>Is a broken transition strip a big deal?</summary><p style={{ color: "var(--text-dim)", lineHeight: 1.7, marginTop: 12 }}>It can be. Gaps let moisture and debris underneath, which can cause larger flooring problems over time — including subfloor damage and mold. It&apos;s also a trip hazard. A $200 fix now prevents a $2,000 problem later.</p></details>
         </section>

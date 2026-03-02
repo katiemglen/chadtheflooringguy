@@ -151,7 +151,7 @@ const faqSchema = {
       name: "How much does carpet repair cost in Woodbury MN?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Most carpet repairs range from $150–$500 depending on the issue. Chad provides transparent itemized quotes so you see every line item and can choose what to DIY to save money. Text photos to 651-353-6238 for a free estimate.",
+        text: "Most carpet repairs range from $149–$499 depending on the issue. Chad provides transparent itemized quotes so you see every line item and can choose what to DIY to save money. Text photos to 651-353-6238 for a free estimate.",
       },
     },
     {

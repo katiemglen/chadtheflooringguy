@@ -26,7 +26,7 @@ const faqSchema = {
       name: "How much does it cost to fix flooring before selling a house?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Most pre-listing repairs range from $150–$800 depending on the issue. Carpet restretching is $150–$500, pet damage patches $150–$500, LVP board replacement $200–$800, and transition fixes $100–$400. Chad provides transparent itemized quotes. Text photos to 651-353-6238 for a free estimate.",
+        text: "Most pre-listing repairs range from $149–$799 depending on the issue. Carpet restretching is $149–$499, pet damage patches $149–$499, LVP board replacement $199–$799, and transition fixes $99–$399. Chad provides transparent itemized quotes. Text photos to 651-353-6238 for a free estimate.",
       },
     },
     {
@@ -57,10 +57,10 @@ const faqSchema = {
 };
 
 const repairs = [
-  { icon: "🔧", name: "Carpet Wrinkle Restretching", price: "$150–$500", desc: "Flat, tight carpet for listing photos. Most jobs done same day. Eliminates trip hazard concerns from inspectors." },
-  { icon: "🐾", name: "Pet Damage Patches", price: "$150–$500", desc: "Radio-wave seaming creates invisible patches. Buyers won\u2019t know there was ever damage. No need to re-carpet the room." },
-  { icon: "📐", name: "LVP Board Replacement", price: "$200–$800", desc: "Individual damaged boards replaced without tearing up the whole floor. Seamless result." },
-  { icon: "🚪", name: "Transition Strip Repair", price: "$100–$400", desc: "Fix gaps and broken strips between rooms. A small fix that makes a big visual difference in showings." },
+  { icon: "🔧", name: "Carpet Wrinkle Restretching", price: "$149–$499", desc: "Flat, tight carpet for listing photos. Most jobs done same day. Eliminates trip hazard concerns from inspectors." },
+  { icon: "🐾", name: "Pet Damage Patches", price: "$149–$499", desc: "Radio-wave seaming creates invisible patches. Buyers won\u2019t know there was ever damage. No need to re-carpet the room." },
+  { icon: "📐", name: "LVP Board Replacement", price: "$199–$799", desc: "Individual damaged boards replaced without tearing up the whole floor. Seamless result." },
+  { icon: "🚪", name: "Transition Strip Repair", price: "$99–$399", desc: "Fix gaps and broken strips between rooms. A small fix that makes a big visual difference in showings." },
 ];
 
 const whyChad = [

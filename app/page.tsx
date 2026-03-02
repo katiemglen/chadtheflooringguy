@@ -15,10 +15,10 @@ const FALLBACK_CONFIG: Record<string, string> = {
 };
 
 const FALLBACK_SERVICES = [
-  { _id: "f1", tier: "primary", icon: "🔧", name: "Carpet Repair & Re-Stretching", priceRange: "$150–$500", description: "Wrinkles, bumps, pet damage, seam repairs, burn patches. Power stretching and professional radio-wave seaming — targeted fixes that extend your carpet's life by years.", features: ["Wrinkle & bump removal", "Pet damage patching", "Seam repair", "Burn & stain patching", "Stair carpet repair"], active: true, order: 1 },
-  { _id: "f2", tier: "primary", icon: "📐", name: "LVP & Vinyl Plank Repair", priceRange: "$200–$800", description: "Single-board replacement, click-lock fixes, water damage repair. No whole-floor teardown needed — save thousands vs full replacement.", features: ["Single-board replacement", "Water damage repair", "Click-lock fixes", "Transition strip repair", "Subfloor leveling"], active: true, order: 2 },
-  { _id: "f3", tier: "primary", icon: "🪵", name: "Hardwood & Engineered Wood Repair", priceRange: "$300–$1,200", description: "Board replacement, scratch repair, water damage fixes. Stained and finished to blend seamlessly with your existing floor.", features: ["Board replacement", "Scratch & dent repair", "Water damage repair", "Engineered wood fixes"], active: true, order: 3 },
-  { _id: "f4", tier: "primary", icon: "🚪", name: "Floor Transition Repair", priceRange: "$100–$400", description: "Fix gaps between rooms, replace broken transition strips, level uneven thresholds. A $200 fix now prevents a $2,000 problem later.", features: ["Transition strip replacement", "Doorway gap repair", "Threshold leveling", "Stair nosing repair"], active: true, order: 4 },
+  { _id: "f1", tier: "primary", icon: "🔧", name: "Carpet Repair & Re-Stretching", priceRange: "$149–$499", description: "Wrinkles, bumps, pet damage, seam repairs, burn patches. Power stretching and professional radio-wave seaming — targeted fixes that extend your carpet's life by years.", features: ["Wrinkle & bump removal", "Pet damage patching", "Seam repair", "Burn & stain patching", "Stair carpet repair"], active: true, order: 1 },
+  { _id: "f2", tier: "primary", icon: "📐", name: "LVP & Vinyl Plank Repair", priceRange: "$199–$799", description: "Single-board replacement, click-lock fixes, water damage repair. No whole-floor teardown needed — save thousands vs full replacement.", features: ["Single-board replacement", "Water damage repair", "Click-lock fixes", "Transition strip repair", "Subfloor leveling"], active: true, order: 2 },
+  { _id: "f3", tier: "primary", icon: "🪵", name: "Hardwood & Engineered Wood Repair", priceRange: "$299–$1199", description: "Board replacement, scratch repair, water damage fixes. Stained and finished to blend seamlessly with your existing floor.", features: ["Board replacement", "Scratch & dent repair", "Water damage repair", "Engineered wood fixes"], active: true, order: 3 },
+  { _id: "f4", tier: "primary", icon: "🚪", name: "Floor Transition Repair", priceRange: "$99–$399", description: "Fix gaps between rooms, replace broken transition strips, level uneven thresholds. A $200 fix now prevents a $2,000 problem later.", features: ["Transition strip replacement", "Doorway gap repair", "Threshold leveling", "Stair nosing repair"], active: true, order: 4 },
 ];
 
 // Testimonials load from Convex (social media reviews). Empty fallback hides section until real data loads.
@@ -304,9 +304,9 @@ function RepairServices({ services }: { services: any[] }) {
 /* ==================== NEW INSTALLATIONS ==================== */
 function NewInstallations() {
   const tiers = [
-    { icon: "🏷️", name: "Budget Tier", years: "3–5 years", desc: "Ideal for rental properties, quick flips, or situations where you\u2019re not staying long-term. Chad happily installs these lower-tier options when they match your goals." },
-    { icon: "⭐", name: "Mid-Range Tier", years: "7–10 years", desc: "Built to last. This is Chad\u2019s most popular and recommended option for most homeowners who live in the house full-time.", featured: true },
     { icon: "💎", name: "Premium / 100-Year Tier", years: "20+ years / lifetime", desc: "Luxury materials designed for lifetime performance \u2014 never replace again. This tier often includes pre-finished hardwood." },
+    { icon: "⭐", name: "Mid-Range Tier", years: "7–10 years", desc: "Built to last. This is Chad\u2019s most popular and recommended option for most homeowners who live in the house full-time.", featured: true },
+    { icon: "🏷️", name: "Budget Tier", years: "3–5 years", desc: "Ideal for rental properties, quick flips, or situations where you\u2019re not staying long-term. Chad happily installs these lower-tier options when they match your goals." },
   ];
   return (
     <section className="section-alt" style={{ padding: "80px 0" }}>
@@ -390,7 +390,9 @@ function WhyChadSavesMoney() {
     { icon: "📋", title: "Transparent Itemized Quotes", desc: "You see every line item and choose what to DIY — demo, garbage, material pickup at cost. Save hundreds on every job." },
     { icon: "🔧", title: "Specialized Tools = Targeted Repairs", desc: "Professional radio-wave carpet seaming — invisible patches bonded from the top with no heat, no smoke, no fiber damage. No full restretch needed. Single-board LVP removal (no whole-floor teardown risk)." },
     { icon: "💪", title: "20+ Years + Proper Adhesives", desc: "One-and-done repairs. No callbacks, no expensive redos. Done right the first time with industry-grade materials." },
-    { icon: "📊", title: "Less Than $2/Day", desc: "Less than $2/day for safe, beautiful floors vs. $800+ repeat fixes later. Typical full-room replacement: $3,500–$8,500. Chad Bublitz targeted repair: $350–$1,000 + your DIY savings." },
+    { icon: "📊", title: "Less Than $1.37/Day", desc: "A $499 carpet repair = less than $1.37/day over a year. Compare that to $800+ when a cheap fix fails and you pay twice. Typical full-room replacement: $3,500–$8,500. Chad\u2019s targeted repair: $149–$1199 + your DIY savings." },
+    { icon: "🎯", title: "You Only Pay for What\u2019s Broken", desc: "Chad repairs the damaged area only — not the whole floor. A few bad LVP boards don\u2019t mean a full-room teardown. A carpet wrinkle doesn\u2019t mean new carpet. Targeted repairs start at $149." },
+    { icon: "✅", title: "No Surprises — The Quote Is the Price", desc: "Chad\u2019s itemized quote is the price you pay. No hidden fees, no surprise add-ons, no \u2018well, once we got in there...\u2019 conversations. What you see is what you get." },
   ];
   return (
     <section style={{ padding: "60px 0", background: "var(--bg-section)" }}>
@@ -416,23 +418,39 @@ function WhyChadSavesMoney() {
 
 /* ==================== HOME SELLER / REALTOR SECTION ==================== */
 function HomeSellerSection() {
+  const stats = [
+    { value: "$149–$799", label: "typical pre-listing repair" },
+    { value: "$3,500–$8,500", label: "what full replacement costs" },
+    { value: "Same day", label: "most repairs completed" },
+  ];
   return (
-    <section style={{ padding: "40px 0" }}>
-      <div className="container" style={{ maxWidth: 700 }}>
-        <div style={{ padding: "28px 32px", borderRadius: 16, background: "rgba(245,166,35,0.06)", border: "1px solid rgba(245,166,35,0.2)", textAlign: "center" }}>
-          <div style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px", color: "var(--gold-dark)", marginBottom: 12 }}>🏡 For Home Sellers &amp; Realtors in Woodbury &amp; Washington County</div>
-          <p style={{ fontSize: "1rem", color: "var(--text-dim)", lineHeight: 1.7, margin: 0 }}>
-            Quick targeted repairs before listing — fix wrinkles, pet damage, or transitions without replacing the whole floor. Fast turnaround, photo-ready results that help homes sell faster.
-          </p>
-          <div style={{ marginTop: 16, display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
-            <a href="sms:6513536238" style={{ color: "var(--gold-dark)", fontWeight: 700, textDecoration: "none", fontSize: "0.95rem" }}>
-              📷 Text photos to 651-353-6238
-            </a>
-            <a href="/home-seller-flooring-repair" style={{ color: "var(--gold-dark)", fontWeight: 700, textDecoration: "none", fontSize: "0.95rem" }}>
-              Learn more →
-            </a>
-          </div>
+    <section style={{ padding: "80px 0", background: "linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%)", color: "#fff" }}>
+      <div className="container" style={{ maxWidth: 800, textAlign: "center" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 16px", borderRadius: 100, fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px", background: "rgba(196,136,42,0.2)", color: "var(--gold)", border: "1px solid rgba(196,136,42,0.4)", marginBottom: 20 }}>
+          🏡 For Home Sellers &amp; Realtors
         </div>
+        <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2.2rem)", fontWeight: 800, marginBottom: 16 }}>
+          Selling Your Home? Fix the Floors — Don&apos;t Replace Them
+        </h2>
+        <p style={{ fontSize: "1.05rem", color: "rgba(255,255,255,0.8)", lineHeight: 1.7, maxWidth: 650, margin: "0 auto 32px" }}>
+          Most sellers think damaged carpet or scratched LVP means a full replacement before listing. It usually doesn&apos;t. Chad does targeted repairs that photograph beautifully, pass buyer inspection, and save thousands compared to replacement. Fast turnaround — most repairs done same day.
+        </p>
+        <div style={{ display: "flex", gap: 24, justifyContent: "center", flexWrap: "wrap", marginBottom: 32 }}>
+          {stats.map((s) => (
+            <div key={s.label} style={{ textAlign: "center", minWidth: 140 }}>
+              <div style={{ fontSize: "1.4rem", fontWeight: 900, color: "var(--gold)", fontFamily: "'Montserrat', sans-serif" }}>{s.value}</div>
+              <div style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.5)", marginTop: 4 }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 16 }}>
+          <a href="/home-seller-flooring-repair" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 28px", borderRadius: 10, background: "var(--gold)", color: "#fff", fontWeight: 700, textDecoration: "none" }}>
+            See Pre-Listing Repair Options →
+          </a>
+        </div>
+        <a href="sms:6513536238" style={{ color: "var(--gold)", fontWeight: 600, textDecoration: "none", fontSize: "0.9rem" }}>
+          Or text photos now to 651-353-6238
+        </a>
       </div>
     </section>
   );
