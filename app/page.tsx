@@ -53,7 +53,6 @@ export default function Home() {
       <NewInstallations />
       <HomeSellerSection />
       <GalleryPreview />
-      <Testimonials testimonials={testimonials || []} />
       <ReviewLinks variant="middle" />
       <BidForm />
       <Footer config={config} />

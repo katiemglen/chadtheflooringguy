@@ -144,16 +144,13 @@ export default function HomeSellerFlooringRepairPage() {
           </ul>
         </section>
 
-        {/* Testimonial */}
+        {/* Reviews */}
         <section style={{ padding: "40px 20px", background: "var(--bg-section)" }}>
           <div style={{ maxWidth: 600, margin: "0 auto", textAlign: "center" }}>
-            <div className="glass-card" style={{ padding: 28 }}>
-              <div style={{ marginBottom: 12 }}>⭐⭐⭐⭐⭐</div>
-              <p style={{ color: "var(--text-dim)", lineHeight: 1.7, fontStyle: "italic", marginBottom: 12, fontSize: "1rem" }}>
-                &ldquo;Fast, honest, and the price was exactly what he quoted. No surprises. Our realtor recommends him to all her clients.&rdquo;
-              </p>
-              <p style={{ fontWeight: 700, fontSize: "0.95rem", margin: 0 }}>Jenny K.</p>
-            </div>
+            <p style={{ color: "var(--text-dim)", lineHeight: 1.7, fontSize: "1rem", margin: 0 }}>
+              See what neighbors say in{" "}
+              <a href="https://g.page/r/CVK6CXEcVKk1EAg/review" target="_blank" rel="noopener noreferrer" style={{ color: "var(--gold)", fontWeight: 700 }}>Chad&apos;s Google reviews</a>.
+            </p>
           </div>
         </section>
 

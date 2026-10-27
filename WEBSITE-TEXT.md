@@ -406,8 +406,8 @@ A: It can be. Gaps let moisture and debris underneath, which can cause larger fl
 ✓ Insured through Anthony Marie LLC — 20+ years experience
 ✓ Text photos, get a quote same day — no scheduling hassle
 
-### Testimonial
-"Fast, honest, and the price was exactly what he quoted. No surprises. Our realtor recommends him to all her clients." — Jenny K.
+### Reviews
+See what neighbors say in Chad's Google reviews (link: https://g.page/r/CVK6CXEcVKk1EAg/review).
 
 ### CTA
 **Heading:** Get a Pre-Listing Repair Quote
